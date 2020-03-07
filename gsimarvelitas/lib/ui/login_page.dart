@@ -175,7 +175,7 @@ class _LoginPageState extends State<LoginPage>
                 highlightColor: Colors.transparent,
                 onPressed: _onSignInButtonPress,
                 child: Text(
-                  "Existing",
+                  "Iniciar sesión",
                   style: TextStyle(
                       color: left,
                       fontSize: 16.0,
@@ -190,7 +190,7 @@ class _LoginPageState extends State<LoginPage>
                 highlightColor: Colors.transparent,
                 onPressed: _onSignUpButtonPress,
                 child: Text(
-                  "New",
+                  "Registro",
                   style: TextStyle(
                       color: right,
                       fontSize: 16.0,
@@ -242,7 +242,7 @@ class _LoginPageState extends State<LoginPage>
                               color: Colors.black,
                               size: 22.0,
                             ),
-                            hintText: "Email Address",
+                            hintText: "Correo",
                             hintStyle: TextStyle(
                                 fontFamily: "WorkSansSemiBold", fontSize: 17.0),
                           ),
@@ -271,7 +271,7 @@ class _LoginPageState extends State<LoginPage>
                               size: 22.0,
                               color: Colors.black,
                             ),
-                            hintText: "Password",
+                            hintText: "Contraseña",
                             hintStyle: TextStyle(
                                 fontFamily: "WorkSansSemiBold", fontSize: 17.0),
                             suffixIcon: GestureDetector(
@@ -342,7 +342,7 @@ class _LoginPageState extends State<LoginPage>
             child: FlatButton(
                 onPressed: () {},
                 child: Text(
-                  "Forgot Password?",
+                  "¿Ha olvidado su contraseña?",
                   style: TextStyle(
                       decoration: TextDecoration.underline,
                       color: Colors.white,
@@ -373,7 +373,7 @@ class _LoginPageState extends State<LoginPage>
                 Padding(
                   padding: EdgeInsets.only(left: 15.0, right: 15.0),
                   child: Text(
-                    "Or",
+                    "Otras plataformas",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 16.0,
@@ -480,7 +480,7 @@ class _LoginPageState extends State<LoginPage>
                               FontAwesomeIcons.user,
                               color: Colors.black,
                             ),
-                            hintText: "Name",
+                            hintText: "Nombre",
                             hintStyle: TextStyle(
                                 fontFamily: "WorkSansSemiBold", fontSize: 16.0),
                           ),
@@ -508,7 +508,7 @@ class _LoginPageState extends State<LoginPage>
                               FontAwesomeIcons.envelope,
                               color: Colors.black,
                             ),
-                            hintText: "Email Address",
+                            hintText: "Correo",
                             hintStyle: TextStyle(
                                 fontFamily: "WorkSansSemiBold", fontSize: 16.0),
                           ),
@@ -536,7 +536,7 @@ class _LoginPageState extends State<LoginPage>
                               FontAwesomeIcons.lock,
                               color: Colors.black,
                             ),
-                            hintText: "Password",
+                            hintText: "Contraseña",
                             hintStyle: TextStyle(
                                 fontFamily: "WorkSansSemiBold", fontSize: 16.0),
                             suffixIcon: GestureDetector(
@@ -573,7 +573,7 @@ class _LoginPageState extends State<LoginPage>
                               FontAwesomeIcons.lock,
                               color: Colors.black,
                             ),
-                            hintText: "Confirmation",
+                            hintText: "Confirmación",
                             hintStyle: TextStyle(
                                 fontFamily: "WorkSansSemiBold", fontSize: 16.0),
                             suffixIcon: GestureDetector(
@@ -627,7 +627,7 @@ class _LoginPageState extends State<LoginPage>
                       padding: const EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 42.0),
                       child: Text(
-                        "SIGN UP",
+                        "LOG UP",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 25.0,
