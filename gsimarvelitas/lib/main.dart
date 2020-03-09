@@ -9,8 +9,8 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: 'gsimarvelitas',
       theme: new ThemeData(
-brightness: Brightness.light,
-primaryColor: Colors.red[800],
+        brightness: Brightness.light,
+        primaryColor: Colors.red[800],
         primarySwatch: Colors.red,
       ),
       home: new LoginPage(),
