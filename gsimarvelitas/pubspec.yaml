@@ -25,6 +25,10 @@ flutter:
 
   assets:
       - assets/login_logo.png
+      - assets/ajustes.png
+      - assets/msmarvel1.jpg
+      - assets/shehulk1.jpg
+      - assets/mightythor1.jpg
 
   fonts:
     - family: WorkSansSemiBold
