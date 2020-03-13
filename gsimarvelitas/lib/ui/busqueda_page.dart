@@ -16,13 +16,14 @@ class _BusquedaPageState extends State<BusquedaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Buscador'),
-        ),
-        body: createListView());
+      appBar: AppBar(
+        title: Text('ProjectList'),
+      ),
+      body: projectWidget(),
+    );
   }
 
-  Widget createListView() {
+  Widget projectWidget() {
     return FutureBuilder(
       builder: (context, projectSnap) {
         if (projectSnap.connectionState == ConnectionState.none &&
@@ -31,47 +32,17 @@ class _BusquedaPageState extends State<BusquedaPage> {
           return Container();
         }
         return ListView.builder(
-           itemCount: projectSnap.data.length,
+          itemCount: projectSnap.data.length,
           itemBuilder: (context, index) {
             Personaje per = projectSnap.data[index];
-            return Column(
-              children: <Widget>[
-                SizedBox(
-                  child: CircularProgressIndicator(),
-                  width: 60,
-                  height: 60,
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 16),
-                  child: Text('Esperando resultados...'),
-                )
-              ],
+            return Card(
+             child: Text(per.name),
+               
             );
           },
         );
       },
       future: fetchPost(),
     );
-    /*return Scaffold(
-      appBar: AppBar(
-        title: Text("Lista personajes"),
-      ),
-      body: Center(
-        child: FutureBuilder<List>(
-          future: personaje,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return new Row(children: snapshot)
-             // return Text(snapshot.data[19].name);
-            } else if (snapshot.hasError) {
-              return Text("$snapshot.error");
-            }
-            return CircularProgressIndicator();
-          },
-        ),
-      ),
-    );
-  }
-*/
   }
 }
