@@ -8,15 +8,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'gsimarvelitas',
       theme: new ThemeData(
         brightness: Brightness.light,
         primaryColor: Colors.red[800],
         primarySwatch: Colors.red,
       ),
-      home: new resultados(),
-    //home: new LoginPage(),
-     // routes: <String, WidgetBuilder>{
+      //home: new Resultados(),
+      home: new LoginPage(),
+      // routes: <String, WidgetBuilder>{
 
       //}
     );

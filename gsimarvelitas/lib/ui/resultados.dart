@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 //import 'package:flutter/rendering.dart';
 
-class resultados extends StatefulWidget{
+class Resultados extends StatefulWidget{
   @override
-    _resultadosState createState() => _resultadosState();
+    _ResultadosState createState() => _ResultadosState();
 }
 
-class _resultadosState extends State<resultados> with SingleTickerProviderStateMixin{
+class _ResultadosState extends State<Resultados> with SingleTickerProviderStateMixin{
     bool isCollapsed = true;
     double screenWidth, screenHeight;
     final Duration duration = const Duration(milliseconds: 500);
