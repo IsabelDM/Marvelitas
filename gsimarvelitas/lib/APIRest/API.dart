@@ -7,7 +7,6 @@ const baseUrl =
 class API {
   static Future getPersonajes() {
     var url = baseUrl;
-    print('Antes de url');
     return http.get(url);
   }
 }

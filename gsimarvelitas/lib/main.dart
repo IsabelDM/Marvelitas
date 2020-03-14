@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gsimarvelitas/ui/busqueda_page.dart';
 import 'package:gsimarvelitas/ui/login_page.dart';
 import 'package:gsimarvelitas/ui/resultados.dart';
 
@@ -15,11 +16,12 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.red[800],
         primarySwatch: Colors.red,
       ),
-      //home: new Resultados(),
-      home: new LoginPage(),
-      // routes: <String, WidgetBuilder>{
-
-      //}
+      routes: <String, WidgetBuilder>{
+        "/inicio": (BuildContext context) => LoginPage(),
+        "/busqueda": (BuildContext context) => BusquedaPage(),
+        "/resultados": (BuildContext context) => Resultados(),
+      },
+      home: LoginPage(),
     );
   }
 }
