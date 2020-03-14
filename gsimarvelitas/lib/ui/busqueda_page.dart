@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:gsimarvelitas/APIRest/personaje.dart';
 import 'package:flutter/material.dart';
@@ -13,20 +12,31 @@ class BusquedaPage extends StatefulWidget {
 }
 
 class _BusquedaPageState extends State<BusquedaPage> {
-  final TextEditingController _filter = new TextEditingController();
-  final dio = new Dio(); //for http requests´
-  String _searchText = "";
-  Future<List> personaje = fetchPost();
-  Icon _searchIcon = new Icon(Icons.search);
-  Widget _appBarTitle = new Text('Personajes');
+  final myController = TextEditingController();
+  @override
+  void dispose() {
+    myController.dispose();
+    super.dispose();
+  }
 
-//TODO: buscador https://medium.com/flutterpub/a-simple-search-bar-in-flutter-f99aed68f523
-//      que envie la información a la url
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: projectWidget(),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    myController.addListener(_printLatestValue);
+  }
+
+  _printLatestValue() {
+    print(myController.text);
+    fetchPost(myController.text);
+    initState();
   }
 
   Widget projectWidget() {
@@ -38,7 +48,7 @@ class _BusquedaPageState extends State<BusquedaPage> {
           return Container();
         }
         return Scaffold(
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.red,
           body: SingleChildScrollView(
             child: Container(
               height: MediaQuery.of(context).size.height,
@@ -58,14 +68,30 @@ class _BusquedaPageState extends State<BusquedaPage> {
                             onTap: () {
                               Navigator.pushNamed(context, "/resultados");
                             },
-                            child: Center(
-                              child: Column(
-                                children: <Widget>[
-                                  Image.network(per.thumbnailpath +
-                                      "." +
-                                      per.thumbnailext),
-                                  Text(per.name),
-                                ],
+                            child: new Container(
+                              constraints: new BoxConstraints.expand(
+                                height: 200.0,
+                              ),
+                              alignment: Alignment.topLeft,
+                              padding:
+                                  new EdgeInsets.only(left: 16.0, bottom: 8.0),
+                              decoration: new BoxDecoration(
+                                image: new DecorationImage(
+                                  image: new NetworkImage(
+                                    per.thumbnailpath + "." + per.thumbnailext,
+                                  ),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              child: new Text(
+                                per.name,
+                                style: new TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  backgroundColor:
+                                      new Color.fromRGBO(0, 0, 0, 75),
+                                  fontSize: 40.0,
+                                ),
                               ),
                             ),
                           ),
@@ -77,7 +103,7 @@ class _BusquedaPageState extends State<BusquedaPage> {
                     height: 140,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                        color: Colors.red,
+                        color: Colors.black,
                         borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(30),
                             bottomRight: Radius.circular(30))),
@@ -93,10 +119,12 @@ class _BusquedaPageState extends State<BusquedaPage> {
                               color: Colors.white,
                             ),
                           ),
-                          Text(
-                            "Buscador",
-                            style: TextStyle(color: Colors.white, fontSize: 24),
+                          Image(
+                            image: AssetImage('assets/login_logo.png'),
+                            height: 350,
+                            width: 100,
                           ),
+                          
                           IconButton(
                             onPressed: () {},
                             icon: Icon(
@@ -135,20 +163,20 @@ class _BusquedaPageState extends State<BusquedaPage> {
                                   border: InputBorder.none,
                                   contentPadding: EdgeInsets.symmetric(
                                       horizontal: 25, vertical: 13)),
+                              controller: myController,
                             ),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  /*        */
                 ],
               ),
             ),
           ),
         );
       },
-      future: fetchPost(),
+      future: fetchPost(myController.text),
     );
   }
 }
