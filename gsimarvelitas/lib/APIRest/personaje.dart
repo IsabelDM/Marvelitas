@@ -11,6 +11,7 @@ Future<List> fetchPost(String busqueda) async {
     busqueda = "A";
   }
     final response = await http.get(urlBasic + busqueda + key);
+    print(urlBasic + busqueda + key);
     if (response.statusCode == 200) {
       return fromJson(json.decode(response.body));
     } else {
