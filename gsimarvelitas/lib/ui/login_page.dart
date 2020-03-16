@@ -333,7 +333,7 @@ class _LoginPageState extends State<LoginPage>
                     ),
                   ),
                   onPressed: () {
-                    Navigator.push(context, buildMaterialPageRouteBusqueda());
+                    Navigator.pushNamed(context, "/busqueda");
                   },
                 ),
               ),
@@ -672,8 +672,4 @@ class _LoginPageState extends State<LoginPage>
       _obscureTextSignupConfirm = !_obscureTextSignupConfirm;
     });
   }
-}
-
-MaterialPageRoute buildMaterialPageRouteBusqueda() {
-  return MaterialPageRoute(builder: ((BuildContext context) => BusquedaPage()));
 }

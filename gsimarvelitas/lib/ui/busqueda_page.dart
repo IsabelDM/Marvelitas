@@ -29,14 +29,12 @@ class _BusquedaPageState extends State<BusquedaPage> {
   @override
   void initState() {
     super.initState();
-
     myController.addListener(_printLatestValue);
   }
 
   _printLatestValue() {
-    print(myController.text);
-    fetchPost(myController.text);
-    initState();
+    setState(() {});
+    print("busqueda_page: " + myController.text);
   }
 
   Widget projectWidget() {
@@ -124,7 +122,6 @@ class _BusquedaPageState extends State<BusquedaPage> {
                             height: 350,
                             width: 100,
                           ),
-                          
                           IconButton(
                             onPressed: () {},
                             icon: Icon(
@@ -148,7 +145,6 @@ class _BusquedaPageState extends State<BusquedaPage> {
                             elevation: 5.0,
                             borderRadius: BorderRadius.all(Radius.circular(30)),
                             child: TextField(
-                              // controller: TextEditingController(text: locations[0]),
                               cursorColor: Theme.of(context).primaryColor,
                               decoration: InputDecoration(
                                   hintText: "Buscar personaje...",
