@@ -30,6 +30,7 @@ flutter:
       - assets/msmarvel1.jpg
       - assets/shehulk1.jpg
       - assets/mightythor1.jpg
+      - assets/dicaprio.jpg
 
   fonts:
     - family: WorkSansSemiBold

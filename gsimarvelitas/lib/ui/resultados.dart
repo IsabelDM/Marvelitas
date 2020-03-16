@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gsimarvelitas/ui/busqueda_page.dart';
+import 'package:gsimarvelitas/ui/login_page.dart';
 //import 'package:flutter/rendering.dart';
 
 class Resultados extends StatefulWidget{
@@ -86,24 +88,42 @@ Widget menu(context) {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Icon(Icons.settings, color: Colors.black),
-                Text(
-                  'Ajustes',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-                ),
-                SizedBox(height: 10),
-                Icon(Icons.search, color: Colors.black),
-                Text(
-                  'Cambio Búsqueda',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-                ),
-                SizedBox(height: 10),
-                Icon(Icons.exit_to_app, color: Colors.redAccent),
-                Text(
-                  'Log Out',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-                ),
-                SizedBox(height: 10),
+              UserAccountsDrawerHeader(
+              accountName: Text("Leonardo DiCaprio"),
+              accountEmail: Text("quesehundeelbarco@hijoputa.es"),
+              currentAccountPicture: Image.asset('assets/dicaprio.jpg'),
+              decoration: BoxDecoration(
+                color: Colors.red,
+              ),
+            ),
+            ListTile(
+              title: Text('Ajustes'),
+              leading: Icon(Icons.settings),
+            ),
+            ListTile(
+              title: Text('Cambio de Búsqueda'),
+              leading: Icon(Icons.search), 
+              onTap: () {
+                Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => BusquedaPage(),
+                  ),
+            );
+          },
+            ),
+            ListTile(
+              title: Text('Log Out'),
+              leading: Icon(Icons.exit_to_app),
+              onTap: () {
+                Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => LoginPage(),
+                  ),
+            );
+          },
+            ),
               ],
             ),
           ),
@@ -149,42 +169,6 @@ Widget dashboard(context) {
                       isCollapsed = !isCollapsed;
                     });
                   }),
-            ),
-            bottomNavigationBar: ClipRRect(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(16.0),
-                  topRight: Radius.circular(16.0),
-                  bottomLeft: Radius.circular(borderRadius),
-                  bottomRight: Radius.circular(borderRadius)),
-              child: BottomNavigationBar(
-                  currentIndex: _navBarIndex,
-                  type: BottomNavigationBarType.shifting,
-                  onTap: (index) {
-                    setState(() {
-                      _navBarIndex = index;
-                    });
-                  },
-                  backgroundColor: Theme.of(context).primaryColorDark,
-                  items: [
-                    BottomNavigationBarItem(
-                        icon: Icon(Icons.dashboard),
-                        title: Text(
-                          '.',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )),
-                    BottomNavigationBarItem(
-                        icon: Icon(Icons.explore),
-                        title: Text('.',
-                            style: TextStyle(fontWeight: FontWeight.bold))),
-                    BottomNavigationBarItem(
-                        icon: Icon(Icons.notifications),
-                        title: Text('.',
-                            style: TextStyle(fontWeight: FontWeight.bold))),
-                    BottomNavigationBarItem(
-                        icon: Icon(Icons.account_circle),
-                        title: Text('.',
-                            style: TextStyle(fontWeight: FontWeight.bold))),
-                  ]),
             ),
             body: SingleChildScrollView(
               scrollDirection: Axis.vertical,
