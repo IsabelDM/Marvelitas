@@ -104,11 +104,8 @@ Widget menu(context) {
               title: Text('Cambio de Búsqueda'),
               leading: Icon(Icons.search), 
               onTap: () {
-                Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => BusquedaPage(),
-                  ),
+                Navigator.pushNamed(
+              context,"/busqueda"
             );
           },
             ),
@@ -116,11 +113,8 @@ Widget menu(context) {
               title: Text('Log Out'),
               leading: Icon(Icons.exit_to_app),
               onTap: () {
-                Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => LoginPage(),
-                  ),
+                Navigator.pushNamed(
+              context,"/"
             );
           },
             ),

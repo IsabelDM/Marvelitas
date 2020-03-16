@@ -57,8 +57,11 @@ class _BusquedaPageState extends State<BusquedaPage> {
                     padding: EdgeInsets.only(top: 145),
                     height: MediaQuery.of(context).size.height,
                     width: double.infinity,
-                    child: ListView.builder(
+                    child: GridView.builder(
                       itemCount: projectSnap.data.length,
+                      gridDelegate:
+                          new SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2),
                       itemBuilder: (context, index) {
                         Personaje per = projectSnap.data[index];
                         return Card(
