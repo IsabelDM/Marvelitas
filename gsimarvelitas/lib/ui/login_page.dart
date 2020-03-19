@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:gsimarvelitas/style/theme.dart' as Theme;
-import 'package:gsimarvelitas/ui/busqueda_page.dart';
 import 'package:gsimarvelitas/utils/bubble_indication_painter.dart';
 
 class LoginPage extends StatefulWidget {
@@ -41,81 +39,74 @@ class _LoginPageState extends State<LoginPage>
   Color left = Colors.black;
   Color right = Colors.white;
 
+  AnimationController _animationController;
+  Animation<double> _backgroundAnimation;
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      key: _scaffoldKey,
-      body: NotificationListener<OverscrollIndicatorNotification>(
-        onNotification: (overscroll) {
-          overscroll.disallowGlow();
-        },
-        child: SingleChildScrollView(
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height >= 775.0
-                ? MediaQuery.of(context).size.height
-                : 775.0,
-            decoration: new BoxDecoration(
-              gradient: new LinearGradient(
-                  colors: [
-                    Theme.Colors.loginGradientStart,
-                    Theme.Colors.loginGradientEnd
+        resizeToAvoidBottomPadding: false,
+        key: _scaffoldKey,
+        body: NotificationListener<OverscrollIndicatorNotification>(
+            onNotification: (overscroll) {
+              overscroll.disallowGlow();
+            },
+            child: Stack(children: <Widget>[
+              Image.asset(
+                'assets/img/login.jpg',
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: double.infinity,
+                alignment: FractionalOffset(_backgroundAnimation.value, 0),
+              ),
+              SafeArea(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(top: 75.0),
+                      child: new Image(
+                          width: 200.0,
+                          height: 100.0,
+                          fit: BoxFit.fill,
+                          image: new AssetImage('assets/img/login_logo.png')),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 20.0),
+                      child: _buildMenuBar(context),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: PageView(
+                        controller: _pageController,
+                        onPageChanged: (i) {
+                          if (i == 0) {
+                            setState(() {
+                              right = Colors.white;
+                              left = Colors.black;
+                            });
+                          } else if (i == 1) {
+                            setState(() {
+                              right = Colors.black;
+                              left = Colors.white;
+                            });
+                          }
+                        },
+                        children: <Widget>[
+                          new ConstrainedBox(
+                            constraints: const BoxConstraints.expand(),
+                            child: _buildSignIn(context),
+                          ),
+                          new ConstrainedBox(
+                            constraints: const BoxConstraints.expand(),
+                            child: _buildSignUp(context),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
-                  begin: const FractionalOffset(0.0, 0.0),
-                  end: const FractionalOffset(1.0, 1.0),
-                  stops: [0.0, 1.0],
-                  tileMode: TileMode.clamp),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: 75.0),
-                  child: new Image(
-                      width: 250.0,
-                      height: 191.0,
-                      fit: BoxFit.fill,
-                      image: new AssetImage('assets/img/login_logo.png')),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 20.0),
-                  child: _buildMenuBar(context),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: PageView(
-                    controller: _pageController,
-                    onPageChanged: (i) {
-                      if (i == 0) {
-                        setState(() {
-                          right = Colors.white;
-                          left = Colors.black;
-                        });
-                      } else if (i == 1) {
-                        setState(() {
-                          right = Colors.black;
-                          left = Colors.white;
-                        });
-                      }
-                    },
-                    children: <Widget>[
-                      new ConstrainedBox(
-                        constraints: const BoxConstraints.expand(),
-                        child: _buildSignIn(context),
-                      ),
-                      new ConstrainedBox(
-                        constraints: const BoxConstraints.expand(),
-                        child: _buildSignUp(context),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+              ),
+            ])));
   }
 
   @override
@@ -130,6 +121,23 @@ class _LoginPageState extends State<LoginPage>
   @override
   void initState() {
     super.initState();
+
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(seconds: 20));
+
+    _backgroundAnimation =
+        CurvedAnimation(parent: _animationController, curve: Curves.linear)
+          ..addListener(() {
+            setState(() {});
+          })
+          ..addStatusListener((animationStatus) {
+            if (animationStatus == AnimationStatus.completed) {
+              _animationController.reset();
+              _animationController.forward();
+            }
+          });
+
+    _animationController.forward();
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -151,7 +159,7 @@ class _LoginPageState extends State<LoginPage>
             fontSize: 16.0,
             fontFamily: "WorkSansSemiBold"),
       ),
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.red,
       duration: Duration(seconds: 3),
     ));
   }
@@ -161,7 +169,7 @@ class _LoginPageState extends State<LoginPage>
       width: 300.0,
       height: 50.0,
       decoration: BoxDecoration(
-        color: Color(0x552B2B2B),
+        color: Colors.black,
         borderRadius: BorderRadius.all(Radius.circular(25.0)),
       ),
       child: CustomPaint(
@@ -295,32 +303,13 @@ class _LoginPageState extends State<LoginPage>
                 margin: EdgeInsets.only(top: 170.0),
                 decoration: new BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: Theme.Colors.loginGradientStart,
-                      offset: Offset(1.0, 6.0),
-                      blurRadius: 20.0,
-                    ),
-                    BoxShadow(
-                      color: Theme.Colors.loginGradientEnd,
-                      offset: Offset(1.0, 6.0),
-                      blurRadius: 20.0,
-                    ),
-                  ],
-                  gradient: new LinearGradient(
-                      colors: [
-                        Theme.Colors.loginGradientEnd,
-                        Theme.Colors.loginGradientStart
-                      ],
-                      begin: const FractionalOffset(0.2, 0.2),
-                      end: const FractionalOffset(1.0, 1.0),
-                      stops: [0.0, 1.0],
-                      tileMode: TileMode.clamp),
+                  color: Color.fromRGBO(237, 29, 36, 25),
                 ),
                 child: MaterialButton(
                   highlightColor: Colors.transparent,
-                  splashColor: Theme.Colors.loginGradientEnd,
-                  //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                  splashColor: Colors.red,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(5.0))),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 10.0, horizontal: 42.0),
@@ -415,7 +404,7 @@ class _LoginPageState extends State<LoginPage>
                     ),
                     child: new Icon(
                       FontAwesomeIcons.facebookF,
-                      color: Color(0xFF0084ff),
+                      color: Colors.red,
                     ),
                   ),
                 ),
@@ -432,7 +421,7 @@ class _LoginPageState extends State<LoginPage>
                     ),
                     child: new Icon(
                       FontAwesomeIcons.google,
-                      color: Color(0xFF0084ff),
+                      color: Colors.red,
                     ),
                   ),
                 ),
@@ -598,32 +587,11 @@ class _LoginPageState extends State<LoginPage>
               Container(
                 margin: EdgeInsets.only(top: 340.0),
                 decoration: new BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: Theme.Colors.loginGradientStart,
-                      offset: Offset(1.0, 6.0),
-                      blurRadius: 20.0,
-                    ),
-                    BoxShadow(
-                      color: Theme.Colors.loginGradientEnd,
-                      offset: Offset(1.0, 6.0),
-                      blurRadius: 20.0,
-                    ),
-                  ],
-                  gradient: new LinearGradient(
-                      colors: [
-                        Theme.Colors.loginGradientEnd,
-                        Theme.Colors.loginGradientStart
-                      ],
-                      begin: const FractionalOffset(0.2, 0.2),
-                      end: const FractionalOffset(1.0, 1.0),
-                      stops: [0.0, 1.0],
-                      tileMode: TileMode.clamp),
-                ),
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                    color: Color.fromRGBO(237, 29, 36, 25)),
                 child: MaterialButton(
                     highlightColor: Colors.transparent,
-                    splashColor: Theme.Colors.loginGradientEnd,
+                    splashColor: Colors.red,
                     //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(

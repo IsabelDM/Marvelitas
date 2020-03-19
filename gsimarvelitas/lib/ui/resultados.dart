@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gsimarvelitas/ui/busqueda_page.dart';
-import 'package:gsimarvelitas/ui/login_page.dart';
+
 //import 'package:flutter/rendering.dart';
 
 class Resultados extends StatefulWidget{

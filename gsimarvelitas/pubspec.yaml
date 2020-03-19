@@ -11,6 +11,8 @@ dependencies:
     sdk: flutter
   http: ^0.12.0+4
   dio: 1.0.0
+  google_fonts: ^0.3.9
+
 
   cupertino_icons: ^0.1.2
 
@@ -31,6 +33,7 @@ flutter:
       - assets/shehulk1.jpg
       - assets/mightythor1.jpg
       - assets/dicaprio.jpg
+      - assets/login.jpg
 
   fonts:
     - family: WorkSansSemiBold
@@ -44,3 +47,4 @@ flutter:
     - family: WorkSansMedium
       fonts:
         - asset: assets/fonts/Work_Sans/WorkSans-Medium.ttf
+        

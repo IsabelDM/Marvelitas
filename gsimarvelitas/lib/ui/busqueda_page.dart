@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:gsimarvelitas/APIRest/personaje.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class BusquedaPage extends StatefulWidget {
   final Future<Personaje> personaje;
@@ -65,6 +66,11 @@ class _BusquedaPageState extends State<BusquedaPage> {
                       itemBuilder: (context, index) {
                         Personaje per = projectSnap.data[index];
                         return Card(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            side: BorderSide(color: Colors.white),
+                          ),
                           child: new InkWell(
                             onTap: () {
                               Navigator.pushNamed(context, "/resultados");
@@ -73,10 +79,12 @@ class _BusquedaPageState extends State<BusquedaPage> {
                               constraints: new BoxConstraints.expand(
                                 height: 200.0,
                               ),
-                              alignment: Alignment.topLeft,
+                              alignment: Alignment.center,
                               padding:
                                   new EdgeInsets.only(left: 16.0, bottom: 8.0),
                               decoration: new BoxDecoration(
+                                borderRadius:
+                                    new BorderRadius.all(Radius.circular(10)),
                                 image: new DecorationImage(
                                   image: new NetworkImage(
                                     per.thumbnailpath + "." + per.thumbnailext,
@@ -86,13 +94,11 @@ class _BusquedaPageState extends State<BusquedaPage> {
                               ),
                               child: new Text(
                                 per.name,
-                                style: new TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                                //balooChettan, pTSerif
+                                style: GoogleFonts.specialElite(color: Colors.white,
                                   backgroundColor:
                                       new Color.fromRGBO(0, 0, 0, 75),
-                                  fontSize: 40.0,
-                                ),
+                                      fontSize: 25.0,)
                               ),
                             ),
                           ),
@@ -129,7 +135,7 @@ class _BusquedaPageState extends State<BusquedaPage> {
                             onPressed: () {},
                             icon: Icon(
                               Icons.filter_list,
-                              color: Colors.white,
+                              color: Colors.black,
                             ),
                           ),
                         ],
