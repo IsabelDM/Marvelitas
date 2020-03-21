@@ -7,17 +7,15 @@ Future<List> fetchPost(String busqueda) async {
       "https://gateway.marvel.com/v1/public/characters?nameStartsWith=";
   String key =
       "&ts=1&apikey=f2aeb8c5d6295bfdd5627050e1980eaf&hash=e6ff3507113c07c2a3234301b2002277";
-  if (busqueda == "" || busqueda == null) {
-    busqueda = "A";
+ 
+  final response = await http.get(urlBasic + busqueda + key);
+  print(urlBasic + busqueda + key);
+  if (response.statusCode == 200) {
+    return fromJson(json.decode(response.body));
+  } else {
+    return null;
   }
-    final response = await http.get(urlBasic + busqueda + key);
-    print(urlBasic + busqueda + key);
-    if (response.statusCode == 200) {
-      return fromJson(json.decode(response.body));
-    } else {
-      throw Exception('Fallo al cargar la petición a la API');
-    }
-  }
+}
 
 Future<List> fromJson(Map<String, dynamic> json) async {
   Iterable resultados = json['data']['results'];

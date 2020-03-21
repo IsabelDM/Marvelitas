@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gsimarvelitas/utils/bubble_indication_painter.dart';
+import 'package:gsimarvelitas/utils/my_flutter_app_icons.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -468,7 +469,7 @@ class _LoginPageState extends State<LoginPage>
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             icon: Icon(
-                              FontAwesomeIcons.user,
+                              MyFlutterApp.icons8_thor,
                               color: Colors.black,
                             ),
                             hintText: "Nombre",

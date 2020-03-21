@@ -34,8 +34,12 @@ flutter:
       - assets/mightythor1.jpg
       - assets/dicaprio.jpg
       - assets/login.jpg
+      - assets/background.jpg
 
   fonts:
+    - family: MyFlutterApp
+      fonts: 
+        - asset: assets/fonts/MyFlutterApp/MyFlutterApp.ttf
     - family: WorkSansSemiBold
       fonts:
         - asset: assets/fonts/Work_Sans/WorkSans-SemiBold.ttf
