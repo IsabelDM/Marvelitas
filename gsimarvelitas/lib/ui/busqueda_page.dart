@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:gsimarvelitas/APIRest/personaje.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gsimarvelitas/ui/hamburguesa.dart';
 
 class BusquedaPage extends StatefulWidget {
   final Future<Personaje> personaje;
@@ -63,7 +64,9 @@ class _BusquedaPageState extends State<BusquedaPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/hamburguesa");
+                  },
                   icon: Icon(
                     Icons.menu,
                     color: Colors.white,

@@ -96,6 +96,15 @@ Widget menu(context) {
               ),
             ),
             ListTile(
+              title: Text('Perfil'),
+              leading: Icon(Icons.person),
+               onTap: () {
+                Navigator.pushNamed(
+              context,"/perfil"
+            );
+          },
+            ),
+            ListTile(
               title: Text('Ajustes'),
               leading: Icon(Icons.settings),
             ),
