@@ -50,7 +50,7 @@ class ProfilePage extends StatelessWidget {
 
             Text("Email", style: _style(),),
             SizedBox(height: 4,),
-            Text("quesehundeelbarco@hijoputa.com"),
+            Text("bestperritoever@guau.com"),
             SizedBox(height: 16,),
 
             Text("Localidad", style: _style(),),

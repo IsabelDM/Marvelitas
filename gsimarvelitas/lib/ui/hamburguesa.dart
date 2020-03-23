@@ -32,6 +32,9 @@ class _HamburguesaState extends State<Hamburguesa> {
                 duration: duration,
                 curve: Curves.fastOutSlowIn,
                 //child: dashboard(context)),
+                child: Container(
+                  
+                ),
             ),
           ],
         ),
@@ -53,7 +56,7 @@ Widget menu(context) {
               children: <Widget>[
               UserAccountsDrawerHeader(
               accountName: Text("Leonardo DiCaprio"),
-              accountEmail: Text("quesehundeelbarco@hijoputa.es"),
+              accountEmail: Text("bestperritoever@guau.com"),
               currentAccountPicture: Image.asset('assets/dicaprio.jpg'),
               decoration: BoxDecoration(
                 color: Colors.red,
