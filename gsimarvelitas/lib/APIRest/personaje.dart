@@ -7,7 +7,7 @@ Future<List> fetchPost(String busqueda) async {
       "https://gateway.marvel.com/v1/public/characters?nameStartsWith=";
   String key =
       "&ts=1&apikey=f2aeb8c5d6295bfdd5627050e1980eaf&hash=e6ff3507113c07c2a3234301b2002277";
- 
+
   final response = await http.get(urlBasic + busqueda + key);
   print(urlBasic + busqueda + key);
   if (response.statusCode == 200) {
@@ -15,6 +15,15 @@ Future<List> fetchPost(String busqueda) async {
   } else {
     return null;
   }
+}
+
+List<Serie> procesarSerie(List series) {
+  List<Serie> colecSerie=[];
+  for (var ser in series) {
+    var coleccion = Serie(resourceURI: ser["resourceURI"], name: ser["name"]);
+    colecSerie.add(coleccion);
+  }
+  return colecSerie;
 }
 
 Future<List> fromJson(Map<String, dynamic> json) async {
@@ -27,7 +36,7 @@ Future<List> fromJson(Map<String, dynamic> json) async {
       name: res['name'],
       thumbnailpath: res['thumbnail']['path'],
       thumbnailext: res['thumbnail']['extension'],
-      //series: json['data']['results'][0]['series']
+      series: procesarSerie(res['series']['items']),
     );
     returnlist.add(person);
   }
@@ -39,12 +48,19 @@ class Personaje {
   String name;
   String thumbnailpath;
   String thumbnailext;
-  //String series;
+  List<Serie> series;
 
   Personaje({
     this.name,
     this.thumbnailpath,
     this.thumbnailext,
-    //this.series,
+    this.series,
   });
+}
+
+class Serie {
+  String resourceURI;
+  String name;
+
+  Serie({this.resourceURI, this.name});
 }
