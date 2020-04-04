@@ -10,8 +10,8 @@ import 'package:gsimarvelitas/APIRest/personaje.dart';
 
 class Resultados extends StatefulWidget {
   final Future<Serie> series;
-  final Function onMenuTap;
-  const Resultados({Key key, this.series, this.onMenuTap}) : super(key: key);
+  final Future<Personaje> personaje; 
+  const Resultados({Key key, this.series, this.personaje, }) : super(key: key);
   @override
   _ResultadosState createState() => _ResultadosState();
 }
@@ -178,7 +178,26 @@ class _ResultadosState extends State<Resultados> with SingleTickerProviderStateM
                     });
                   }),
             ),
-          /*  body: listaComics(context, projectSnap),*/
+           body:SingleChildScrollView(
+             scrollDirection: Axis.vertical,
+             physics: ClampingScrollPhysics(),
+             child:Container(
+               child : Column(
+                 crossAxisAlignment: CrossAxisAlignment.start,
+                 children: <Widget>[
+                   SizedBox(height: 50),
+                   Container(
+                     height: 200,
+                     child: PageView(
+                       controller: PageController(viewportFraction: 0.8),
+                       scrollDirection: Axis.horizontal,
+                       pageSnapping: true,
+                       children: projectWidget()
+                     )
+                   )
+                 ]
+               )
+             ))
             ),
           ),
         ),
@@ -204,6 +223,7 @@ class _ResultadosState extends State<Resultados> with SingleTickerProviderStateM
                       crossAxisCount: 2),
                   itemBuilder: (context, index) {
                     Serie ser = projectSnap.data[index];
+                    Personaje per = projectSnap.data[index];
                     return Card( 
                     );
                   },
@@ -215,5 +235,19 @@ class _ResultadosState extends State<Resultados> with SingleTickerProviderStateM
       ),
     );
   }
-  
+   Widget projectWidget() {
+    
+    return FutureBuilder(
+     
+      future: fetchSerie(per.id),
+      builder: (context, projectSnap) {
+        if (projectSnap.hasError) {
+          return Text('Error: ${projectSnap.error}');
+        } else if (!projectSnap.hasData) {
+         return 
+        }
+        return listaComics(context, projectSnap);
+      },
+    );
+  }
 }
