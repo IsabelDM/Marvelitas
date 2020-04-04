@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gsimarvelitas/ui/busqueda_page.dart';
+import 'package:gsimarvelitas/ui/profile_page_design.dart';
+import 'package:gsimarvelitas/ui/resultados.dart';
 
 class Hamburguesa extends StatefulWidget {
   @override

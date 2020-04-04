@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gsimarvelitas/APIRest/personaje.dart';
-import 'package:gsimarvelitas/bloc/navigation_bloc.dart';
+import 'dart:async';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:gsimarvelitas/APIRest/personaje.dart';
 
 //import 'package:flutter/rendering.dart';
 
-class Resultados extends StatefulWidget with NavigationStates{
+class Resultados extends StatefulWidget {
   final Future<Serie> series;
   final Function onMenuTap;
   const Resultados({Key key, this.series, this.onMenuTap}) : super(key: key);
@@ -176,64 +178,42 @@ class _ResultadosState extends State<Resultados> with SingleTickerProviderStateM
                     });
                   }),
             ),
-            body: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              physics: ClampingScrollPhysics(),
-              child: Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(height: 50),
-                    Container(
-                      height: 200,
-                      child: PageView(
-                        controller: PageController(viewportFraction: 0.8),
-                        scrollDirection: Axis.horizontal,
-                        pageSnapping: true,
-                        children: <Widget>[
-                          Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 8),
-                            //color: Colors.redAccent,
-                            width: 100,
-                            decoration: new BoxDecoration(
-                                image: DecorationImage(
-                                  image: new AssetImage('assets/msmarvel1.jpg'),
-                                  fit: BoxFit.fill,
-                                ),
-                                shape: BoxShape.rectangle),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 8),
-                            width: 100,
-                            decoration: new BoxDecoration(
-                                image: DecorationImage(
-                                  image: new AssetImage('assets/shehulk1.jpg'),
-                                  fit: BoxFit.fill,
-                                ),
-                                shape: BoxShape.rectangle),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 8),
-                            width: 100,
-                            decoration: new BoxDecoration(
-                                image: DecorationImage(
-                                  image:
-                                      new AssetImage('assets/mightythor1.jpg'),
-                                  fit: BoxFit.fill,
-                                ),
-                                shape: BoxShape.rectangle),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                  ],
+          /*  body: listaComics(context, projectSnap),*/
+            ),
+          ),
+        ),
+      //),
+    );
+  }
+  Widget listaComics(context,projectSnap){
+      return Scaffold(
+        backgroundColor: Colors.transparent,
+        body: SingleChildScrollView(
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Stack(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(top: 145),
+                height: MediaQuery.of(context).size.height,
+                width: double.infinity,
+                child: GridView.builder(
+                    itemCount: projectSnap.data.length,
+                  gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2),
+                  itemBuilder: (context, index) {
+                    Serie ser = projectSnap.data[index];
+                    return Card( 
+                    );
+                  },
                 ),
               ),
-            ),
+            ],
           ),
         ),
       ),
     );
   }
+  
 }
