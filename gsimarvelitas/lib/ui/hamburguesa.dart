@@ -14,8 +14,8 @@ class _HamburguesaState extends State<Hamburguesa> {
   final Duration duration = const Duration(milliseconds: 500);
   AnimationController _controller;
 
-  AppBar appBar = AppBar();
-  double borderRadius = 0.0;
+ // AppBar appBar = AppBar();
+ // double borderRadius = 0.0;
 
   int _navBarIndex = 0;
   TabController tabController;
@@ -33,7 +33,7 @@ class _HamburguesaState extends State<Hamburguesa> {
                 duration: duration,
                 curve: Curves.fastOutSlowIn,
                 child: Container(
-
+                  
                 )           
             ),
           ],

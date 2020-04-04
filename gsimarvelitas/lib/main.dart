@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         "/resultados": (BuildContext context) => Resultados(),
         "/perfil": (BuildContext context) => ProfilePageDesign(),
        // "/hamburguesa": (BuildContext context) => Hamburguesa(),
-        "/hamburguesa": (BuildContext context) => Seccion(),
+        "/hamburguesa": (BuildContext context) => Hamburguesa(),
    },
       home: LoginPage(),
     );

@@ -192,7 +192,7 @@ class _ResultadosState extends State<Resultados> with SingleTickerProviderStateM
                        controller: PageController(viewportFraction: 0.8),
                        scrollDirection: Axis.horizontal,
                        pageSnapping: true,
-                       children: projectWidget()
+                     //  children: projectWidget()
                      )
                    )
                  ]
@@ -235,7 +235,7 @@ class _ResultadosState extends State<Resultados> with SingleTickerProviderStateM
       ),
     );
   }
-   Widget projectWidget() {
+ /*  Widget projectWidget() {
     
     return FutureBuilder(
      
@@ -249,5 +249,5 @@ class _ResultadosState extends State<Resultados> with SingleTickerProviderStateM
         return listaComics(context, projectSnap);
       },
     );
-  }
+  }*/
 }

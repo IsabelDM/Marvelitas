@@ -154,7 +154,7 @@ class _BusquedaPageState extends State<BusquedaPage> {
                       ),
                       child: new InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, "/resultados", arguments: fetchSerie(per.id));
+                         Navigator.pushNamed(context, "/resultados", arguments: fetchSerie(per.id));                        
                         },
                         child: new Container(
                           constraints: new BoxConstraints.expand(

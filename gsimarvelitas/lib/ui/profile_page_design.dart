@@ -110,7 +110,10 @@ class CustomAppBar extends StatelessWidget
               children: <Widget>[
                 IconButton(
                   icon: Icon(Icons.menu, color: Colors.white,),
-                  onPressed: (){},
+                  onPressed: ()        
+                  {
+                    Navigator.pushNamed(context, "/hamburguesa");
+                  },
                 ),
 
                 Text("Perfil", style: TextStyle(
