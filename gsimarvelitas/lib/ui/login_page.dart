@@ -323,7 +323,7 @@ class _LoginPageState extends State<LoginPage>
                     ),
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(context, "/busqueda");
+                    Navigator.pushNamed(context, "/principal");
                   },
                 ),
               ),

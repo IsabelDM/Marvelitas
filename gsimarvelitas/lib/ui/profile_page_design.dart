@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:math' as math;
 
-class ProfilePageDesign extends StatefulWidget {
+import 'package:gsimarvelitas/bloc/navigation_bloc.dart';
+
+
+
+class ProfilePageDesign extends StatefulWidget with NavigationStates {
+  final Function onMenuTap;
+
+  const ProfilePageDesign({Key key, this.onMenuTap}) : super(key: key);
   @override
   _ProfilePageDesignState createState() => _ProfilePageDesignState();
 }

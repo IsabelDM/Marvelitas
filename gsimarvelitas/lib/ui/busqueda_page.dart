@@ -4,11 +4,14 @@ import 'package:gsimarvelitas/APIRest/personaje.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gsimarvelitas/ui/hamburguesa.dart';
+import 'package:gsimarvelitas/bloc/navigation_bloc.dart';
 
-class BusquedaPage extends StatefulWidget {
+class BusquedaPage extends StatefulWidget with NavigationStates {
   final Future<Personaje> personaje;
-  const BusquedaPage({Key key, this.personaje}) : super(key: key);
+  final Function onMenuTap;
+  const BusquedaPage({Key key, this.personaje, this.onMenuTap}) : super(key: key);
 
+  
   @override
   _BusquedaPageState createState() => _BusquedaPageState();
 }

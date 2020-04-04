@@ -2,19 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gsimarvelitas/APIRest/personaje.dart';
+import 'package:gsimarvelitas/bloc/navigation_bloc.dart';
 
 //import 'package:flutter/rendering.dart';
 
-class Resultados extends StatefulWidget {
+class Resultados extends StatefulWidget with NavigationStates{
   final Future<Serie> series;
-
-  const Resultados({Key key, this.series}) : super(key: key);
+  final Function onMenuTap;
+  const Resultados({Key key, this.series, this.onMenuTap}) : super(key: key);
   @override
   _ResultadosState createState() => _ResultadosState();
 }
 
-class _ResultadosState extends State<Resultados>
-    with SingleTickerProviderStateMixin {
+class _ResultadosState extends State<Resultados> with SingleTickerProviderStateMixin {
   bool isCollapsed = true;
   double screenWidth, screenHeight;
   final Duration duration = const Duration(milliseconds: 500);

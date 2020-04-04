@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gsimarvelitas/ui/busqueda_page.dart';
 
 class Hamburguesa extends StatefulWidget {
   @override
@@ -29,15 +30,15 @@ class _HamburguesaState extends State<Hamburguesa> {
                 bottom: isCollapsed ? 0 : screenHeight * 0.1,
                 duration: duration,
                 curve: Curves.fastOutSlowIn,
-                //child: dashboard(context)),
                 child: Container(
-                  
-                ),
+
+                )           
             ),
           ],
         ),
     );
   }
+
 
   Widget menu(context) {
     return SafeArea(
