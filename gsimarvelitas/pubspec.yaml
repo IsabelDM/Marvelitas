@@ -20,14 +20,13 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   font_awesome_flutter: ^8.0.1
-  flutter_launcher_icons: ^0.7.3
+  flutter_launcher_icons: "^0.7.3"
 
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/login_logo.png"
+  image_path: "assets/img/login_logo.png"
 
 flutter:
 
