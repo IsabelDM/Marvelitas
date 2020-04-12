@@ -1,17 +1,17 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gsimarvelitas/APIRest/personaje.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:gsimarvelitas/ui/hamburguesa.dart';
+import 'package:gsimarvelitas/MenuHamburguesa/navigationBloc.dart';
 
-
-class BusquedaPage extends StatefulWidget {
+class BusquedaPage extends StatefulWidget with NavigationStates {
   final Future<Personaje> personaje;
   final Function onMenuTap;
-  const BusquedaPage({Key key, this.personaje, this.onMenuTap}) : super(key: key);
+  const BusquedaPage({Key key, this.personaje, this.onMenuTap})
+      : super(key: key);
 
-  
   @override
   _BusquedaPageState createState() => _BusquedaPageState();
 }
@@ -32,9 +32,10 @@ class _BusquedaPageState extends State<BusquedaPage> {
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("assets/background.jpg"), fit: BoxFit.cover)),
-      child: Container(child: projectWidget(),),
+        child: Container(
+          child: projectWidget(),
+        ),
       ),
-      //body: projectWidget(),
     );
   }
 
@@ -64,28 +65,12 @@ class _BusquedaPageState extends State<BusquedaPage> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                IconButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/hamburguesa");
-                  },
-                  icon: Icon(
-                    Icons.menu,
-                    color: Colors.white,
-                  ),
-                ),
                 Image(
                   image: AssetImage('assets/login_logo.png'),
                   height: 350,
                   width: 100,
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.filter_list,
-                    color: Colors.black,
-                  ),
                 ),
               ],
             ),
@@ -154,11 +139,12 @@ class _BusquedaPageState extends State<BusquedaPage> {
                       ),
                       child: new InkWell(
                         onTap: () {
-                         Navigator.pushNamed(context, "/resultados", arguments: fetchSerie(per.id));                        
+                           BlocProvider.of<NavigationBloc>(context)
+                        .add(NavigationEvents.ResultadosClickedEvent);
                         },
                         child: new Container(
                           constraints: new BoxConstraints.expand(
-                          height: 200.0,
+                            height: 200.0,
                           ),
                           alignment: Alignment.center,
                           padding: new EdgeInsets.only(left: 16.0, bottom: 8.0),

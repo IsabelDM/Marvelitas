@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gsimarvelitas/APIRest/personaje.dart';
 import 'dart:async';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:gsimarvelitas/APIRest/personaje.dart';
+import 'package:gsimarvelitas/MenuHamburguesa/navigationBloc.dart';
 
 //import 'package:flutter/rendering.dart';
 
-class Resultados extends StatefulWidget {
+class Resultados extends StatefulWidget with NavigationStates{
   final Future<Serie> series;
   final Future<Personaje> personaje; 
   const Resultados({Key key, this.series, this.personaje, }) : super(key: key);

@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gsimarvelitas/ui/Seccion.dart';
 import 'package:gsimarvelitas/ui/busqueda_page.dart';
-import 'package:gsimarvelitas/ui/hamburguesa.dart';
 import 'package:gsimarvelitas/ui/login_page.dart';
 
 import 'package:gsimarvelitas/ui/profile_page_design.dart';
 import 'package:gsimarvelitas/ui/resultados.dart';
-
-
+import 'package:gsimarvelitas/MenuHamburguesa/sidebarLayout.dart';
 
 void main() => runApp(new MyApp());
 
@@ -27,10 +24,8 @@ class MyApp extends StatelessWidget {
         "/busqueda": (BuildContext context) => BusquedaPage(),
         "/resultados": (BuildContext context) => Resultados(),
         "/perfil": (BuildContext context) => ProfilePageDesign(),
-       // "/hamburguesa": (BuildContext context) => Hamburguesa(),
-        "/hamburguesa": (BuildContext context) => Hamburguesa(),
-   },
-      home: LoginPage(),
+      },
+      home: SideBarLayout(),
     );
   }
 }

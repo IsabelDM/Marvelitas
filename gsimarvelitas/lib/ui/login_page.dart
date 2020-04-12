@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gsimarvelitas/utils/bubble_indication_painter.dart';
 import 'package:gsimarvelitas/utils/my_flutter_app_icons.dart';
+import 'package:gsimarvelitas/MenuHamburguesa/navigationBloc.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends StatefulWidget with NavigationStates{
   LoginPage({Key key}) : super(key: key);
 
   @override
@@ -323,7 +325,8 @@ class _LoginPageState extends State<LoginPage>
                     ),
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(context, "/busqueda");
+                    BlocProvider.of<NavigationBloc>(context)
+                        .add(NavigationEvents.BusquedaPageClickedEvent);
                   },
                 ),
               ),

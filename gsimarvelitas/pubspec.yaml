@@ -22,6 +22,12 @@ dev_dependencies:
     sdk: flutter
 
   font_awesome_flutter: ^8.0.1
+  flutter_launcher_icons: ^0.7.3
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/login_logo.png"
 
 flutter:
 
@@ -36,6 +42,8 @@ flutter:
       - assets/dicaprio.jpg
       - assets/login.jpg
       - assets/background.jpg
+      - assets/wallpaper.jpg
+      - assets/wallpaper1.jpg
 
   fonts:
     - family: MyFlutterApp
