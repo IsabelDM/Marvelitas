@@ -324,6 +324,7 @@ class _LoginPageState extends State<LoginPage>
                           fontFamily: "WorkSansBold"),
                     ),
                   ),
+                  
                   onPressed: () {
                     BlocProvider.of<NavigationBloc>(context)
                         .add(NavigationEvents.BusquedaPageClickedEvent);

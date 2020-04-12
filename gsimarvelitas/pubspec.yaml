@@ -36,14 +36,19 @@ flutter:
   assets:
       - assets/login_logo.png
       - assets/ajustes.png
-      - assets/msmarvel1.jpg
-      - assets/shehulk1.jpg
       - assets/mightythor1.jpg
       - assets/dicaprio.jpg
       - assets/login.jpg
       - assets/background.jpg
       - assets/wallpaper.jpg
       - assets/wallpaper1.jpg
+      - assets/carol.jpg
+      - assets/fondo_perfil1.jpg
+      - assets/goose.jpg
+      - assets/hulka.jpg
+      - assets/hulka2.jpg
+      - assets/spaiderman.jpg
+      - assets/spaidermangris.jpg
 
   fonts:
     - family: MyFlutterApp

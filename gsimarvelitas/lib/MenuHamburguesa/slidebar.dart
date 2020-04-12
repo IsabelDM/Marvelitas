@@ -72,16 +72,7 @@ class _SideBarState extends State<SideBar>
                   decoration: BoxDecoration(
                     color: Color.fromRGBO(59, 59, 59, 10),
                     image: DecorationImage(
-                      /*-------------------------------------------------------------------------------
-
-
-
-                              INSERTAR AQUÍ FOTO PARA EL MENÚ HAMBURGUESA
-
-
-                      ------------------------------------------------------------------------------*/
-                      //Si es asset: 
-                      image: AssetImage('assets/wallpaper.jpg'),
+                      image: AssetImage('assets/espaidermangris.jpg'),
                       //Si es online:
                       //image: NetworkImage('https://png.pngtree.com/thumb_back/fw800/back_our/20190620/ourmid/pngtree-strong-decontamination-cleaner-promotion-main-map-image_142503.jpg'),
                       fit: BoxFit.cover,
@@ -93,13 +84,21 @@ class _SideBarState extends State<SideBar>
                         height: 100,
                       ),
                       UserAccountsDrawerHeader(
-                        accountName: Text("Leonardo DiCaprio"),
-                        accountEmail: Text("bestperritoever@guau.com"),
+                        accountName: Text("Jennifer Walters", style: TextStyle(
+                          fontWeight: FontWeight.bold
+                         // color: Colors.black,
+                        )),
+                        accountEmail: Text("bestabogadaever@shulkie.com", style: TextStyle(
+                          fontWeight: FontWeight.bold
+                        )),
                         currentAccountPicture:
-                            Image.asset('assets/dicaprio.jpg'),
+                            Image.asset('assets/hulka.jpg'),
                         decoration: BoxDecoration(
-                          color: Colors.black38,
+                         color: Colors.black38,
                         ),
+                      ),
+                      MenuItem(
+                        title: ' ',
                       ),
                       MenuItem(
                         title: 'Perfil',

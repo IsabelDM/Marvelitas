@@ -52,26 +52,26 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+
             Text("Nombre"),
             SizedBox(height: 4,),
-            Text("Leonardo Dicaprio", style: _style(),),
+            Text("Jennifer Walters", style: _style(),),
             SizedBox(height: 16,),
 
             Text("Email", style: _style(),),
             SizedBox(height: 4,),
-            Text("quesehundeelbarco@hijoputa.com"),
+            Text("bestabogadaever@shulkie.com"),
             SizedBox(height: 16,),
 
             Text("Localidad", style: _style(),),
             SizedBox(height: 4,),
-            Text("Ciudad Real, Spain"),
+            Text("Los Ángeles, California"),
             SizedBox(height: 16,),
 
             Text("Idioma", style: _style(),),
             SizedBox(height: 4,),
-            Text("Perruno, un poco español tb"),
+            Text("Inglés"),
             SizedBox(height: 16,),
-
             Divider(color: Colors.black,)
           ],
         ),
@@ -81,7 +81,7 @@ class ProfilePage extends StatelessWidget {
 }
 
 
-final String foto = 'assets/dicaprio.jpg';
+//final String foto = 'assets/dicaprio.jpg';
 
 class CustomAppBar extends StatelessWidget
   with PreferredSizeWidget{
@@ -96,7 +96,11 @@ class CustomAppBar extends StatelessWidget
       child: Container(
         padding: EdgeInsets.only(top: 4),
         decoration: BoxDecoration(
-          color: Colors.red,
+          color: Color.fromRGBO(59, 59, 59, 10),
+          image: DecorationImage(
+          image: AssetImage('assets/hulka.jpg'),
+          fit: BoxFit.cover,
+          ),
           boxShadow: [
             BoxShadow(
               color: Colors.black,
@@ -108,44 +112,24 @@ class CustomAppBar extends StatelessWidget
         child: Column(
           children: <Widget>[
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
+            
                 IconButton(
-                  icon: Icon(Icons.menu, color: Colors.white,),
-                  onPressed: ()        
-                  {
-                    Navigator.pushNamed(context, "/hamburguesa");
-                  },
-                ),
-
-                Text("Perfil", style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),),
-
-                IconButton(
-                  icon: Icon(Icons.notifications, color: Colors.white,),
+                  icon: Icon(Icons.notifications, color: Colors.black,),
                   onPressed: (){},
                 )
               ],
             ),
 
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
 
                 Column(
                   children: <Widget>[
-                    Image(
-                      image: AssetImage('assets/dicaprio.jpg'),
-                      height: 150,
-                      width: 200,
-                    ),
-                    SizedBox(height: 16,),
-                    Text("Leonardo Dicaprio", style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20
-                    ),)
+                    /*
+                    ),)*/
                   ],
                 ),  
               ],
@@ -158,15 +142,16 @@ class CustomAppBar extends StatelessWidget
                   print("//TODO: button pulsado");
                 },
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 24, 16, 0),
+                  padding: const EdgeInsets.fromLTRB(0, 170, 260, 0),
                   child: Transform.rotate(
                     angle: (math.pi * 0.05),
                     child: Container(
-                      width: 110,
+                      width: 120,
                       height: 32,
                       child: Center(child: Text("Editar Perfil"),),
+                      //child: Center(child: Icon(Icons.edit) ,),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Colors.lightGreen,
                         borderRadius: BorderRadius.all(Radius.circular(16)),
                         boxShadow: [
                           BoxShadow(
