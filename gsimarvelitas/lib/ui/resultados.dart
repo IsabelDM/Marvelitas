@@ -155,27 +155,6 @@ class _ResultadosState extends State<Resultados> with SingleTickerProviderStateM
               centerTitle: true,
               title:
                   Image.asset('assets/login_logo.png', height: 350, width: 100),
-              //, alignment: Alignment.center,
-              leading: IconButton(
-                  icon: AnimatedIcon(
-                    icon: AnimatedIcons.menu_close,
-                    progress: _controller,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      if (isCollapsed) {
-                        _controller.forward();
-
-                        borderRadius = 16.0;
-                      } else {
-                        _controller.reverse();
-
-                        borderRadius = 0.0;
-                      }
-
-                      isCollapsed = !isCollapsed;
-                    });
-                  }),
             ),
            body:SingleChildScrollView(
              scrollDirection: Axis.vertical,
