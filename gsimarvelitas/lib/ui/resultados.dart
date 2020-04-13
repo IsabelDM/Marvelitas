@@ -67,7 +67,7 @@ class _ResultadosState extends State<Resultados> with SingleTickerProviderStateM
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Stack(
           children: <Widget>[
-            menu(context),
+           // menu(context),
             AnimatedPositioned(
                 left: isCollapsed ? 0 : 0.6 * screenWidth,
                 right: isCollapsed ? 0 : -0.2 * screenWidth,
@@ -82,62 +82,6 @@ class _ResultadosState extends State<Resultados> with SingleTickerProviderStateM
     );
   }
 
-  Widget menu(context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.only(left: 32.0),
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: FractionallySizedBox(
-            widthFactor: 0.6,
-            heightFactor: 0.8,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                UserAccountsDrawerHeader(
-                  accountName: Text("Leonardo DiCaprio"),
-                  accountEmail: Text("bestperritoever@guau.com"),
-                  currentAccountPicture: Image.asset('assets/dicaprio.jpg'),
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                  ),
-                ),
-                ListTile(
-                  title: Text('Perfil'),
-                  leading: Icon(Icons.person),
-                  onTap: () {
-                    Navigator.pushNamed(context, "/perfil");
-                  },
-                ),
-                ListTile(
-                  title: Text('Ajustes'),
-                  leading: Icon(Icons.settings),
-                ),
-                ListTile(
-                  title: Text('Cambio de Búsqueda'),
-                  leading: Icon(Icons.search),
-                  onTap: () {
-                    Navigator.pushNamed(context, "/busqueda");
-                  },
-                ),
-                ListTile(
-                  title: Text('Log Out'),
-                  leading: Icon(Icons.exit_to_app),
-                  onTap: () {
-                    Navigator.pushNamed(context, "/");
-                  },
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-    // ),
-    // )
-  }
 
   Widget dashboard(context, personaje) {
     return SafeArea(
@@ -150,11 +94,8 @@ class _ResultadosState extends State<Resultados> with SingleTickerProviderStateM
         child: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
           child: Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.black,
-              centerTitle: true,
-              title:
-                  Image.asset('assets/login_logo.png', height: 350, width: 100),
+            appBar: MyCustomAppBar(
+              height: 150,
             ),
            body:SingleChildScrollView(
              scrollDirection: Axis.vertical,
@@ -229,3 +170,45 @@ class _ResultadosState extends State<Resultados> with SingleTickerProviderStateM
     );
   }*/
 }
+  class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final double height;
+  
+/*
+TODO ESTO QUE VIENE AQUÍ ES PARA PODER MODIFICAR EL TAMAÑO DE LA APPBAR, MADRE SANTA 
+*/
+  const MyCustomAppBar({
+    Key key,
+    @required this.height,
+  }) : super(key: key);
+
+   @override
+  Size get preferredSize => Size.fromHeight(height);
+
+  @override
+  Widget build(BuildContext context) {
+      return Column(
+      children: [
+        Container(
+          color: Colors.black,
+          child: Padding(
+            padding: EdgeInsets.all(1),
+            child: Container(
+              color: Colors.black,
+              padding: EdgeInsets.all(5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                Image(
+                  image: AssetImage('assets/login_logo.png'),
+                  height: 100,
+                  width: 100,
+
+                ),
+              ]),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+  }
