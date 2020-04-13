@@ -5,6 +5,7 @@ import 'package:gsimarvelitas/APIRest/personaje.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gsimarvelitas/MenuHamburguesa/navigationBloc.dart';
+import 'package:gsimarvelitas/ui/resultados.dart';
 
 class BusquedaPage extends StatefulWidget with NavigationStates {
   final Future<Personaje> personaje;
@@ -139,8 +140,9 @@ class _BusquedaPageState extends State<BusquedaPage> {
                       ),
                       child: new InkWell(
                         onTap: () {
-                           BlocProvider.of<NavigationBloc>(context)
-                        .add(NavigationEvents.ResultadosClickedEvent);
+                         /*  BlocProvider.of<NavigationBloc>(context,)
+                        .add(NavigationEvents.ResultadosClickedEvent);*/
+                        Navigator.pushNamed(context, '/Resultados',arguments: per);
                         },
                         child: new Container(
                           constraints: new BoxConstraints.expand(
