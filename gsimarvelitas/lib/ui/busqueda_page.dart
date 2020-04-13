@@ -143,7 +143,7 @@ class _BusquedaPageState extends State<BusquedaPage> {
                         onTap: () {
                          /*  BlocProvider.of<NavigationBloc>(context,)
                         .add(NavigationEvents.ResultadosClickedEvent);*/
-                        Navigator.pushNamed(context, '/Resultados',arguments: per);
+                        Navigator.pushNamed(context, '/resultados',arguments: per);
                         },
                         child: new Container(
                           constraints: new BoxConstraints.expand(

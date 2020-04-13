@@ -8,12 +8,16 @@ import 'package:google_fonts/google_fonts.dart';
 
 //import 'package:flutter/rendering.dart';
 
-class Resultados extends StatefulWidget with NavigationStates{
-
+class Resultados extends StatefulWidget with NavigationStates {
   final Future<Serie> series;
-  final Future<Personaje> personaje; 
-  const Resultados({Key key, this.series, this.personaje, }) : super(key: key);
+  final Personaje personaje;
+  const Resultados({
+    Key key,
+    this.series,
+    this.personaje,
+  }) : super(key: key);
 
+ 
   @override
   _ResultadosState createState() => _ResultadosState();
 }
@@ -50,6 +54,7 @@ class _ResultadosState extends State<Resultados>
 
   @override
   Widget build(BuildContext context) {
+     final Personaje pers = ModalRoute.of(context).settings.arguments;
     Size size = MediaQuery.of(context).size;
     screenHeight = size.height;
     screenWidth = size.width;
@@ -77,68 +82,11 @@ class _ResultadosState extends State<Resultados>
                 bottom: isCollapsed ? 0 : screenHeight * 0.1,
                 duration: duration,
                 curve: Curves.fastOutSlowIn,
-                child: dashboard(context, widget.personaje)),
+                child: dashboard(context, pers)),
           ],
         ),
       ),
     );
-  }
-
-  Widget menu(context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.only(left: 32.0),
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: FractionallySizedBox(
-            widthFactor: 0.6,
-            heightFactor: 0.8,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                UserAccountsDrawerHeader(
-                  accountName: Text("Leonardo DiCaprio"),
-                  accountEmail: Text("bestperritoever@guau.com"),
-                  currentAccountPicture: Image.asset('assets/dicaprio.jpg'),
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                  ),
-                ),
-                ListTile(
-                  title: Text('Perfil'),
-                  leading: Icon(Icons.person),
-                  onTap: () {
-                    Navigator.pushNamed(context, "/perfil");
-                  },
-                ),
-                ListTile(
-                  title: Text('Ajustes'),
-                  leading: Icon(Icons.settings),
-                ),
-                ListTile(
-                  title: Text('Cambio de Búsqueda'),
-                  leading: Icon(Icons.search),
-                  onTap: () {
-                    Navigator.pushNamed(context, "/busqueda");
-                  },
-                ),
-                ListTile(
-                  title: Text('Log Out'),
-                  leading: Icon(Icons.exit_to_app),
-                  onTap: () {
-                    Navigator.pushNamed(context, "/");
-                  },
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-    // ),
-    // )
   }
 
   Widget dashboard(context, personaje) {
@@ -158,41 +106,41 @@ class _ResultadosState extends State<Resultados>
               title:
                   Image.asset('assets/login_logo.png', height: 350, width: 100),
             ),
-           body:SingleChildScrollView(
-             scrollDirection: Axis.vertical,
-             physics: ClampingScrollPhysics(),
-             child:Container(
-               child : Column(
-                 crossAxisAlignment: CrossAxisAlignment.start,
-                 children: <Widget>[
-                   SizedBox(height: 50),
-                   Container(
-                     height: 200,
-                     child: PageView(
-                       controller: PageController(viewportFraction: 0.8),
-                       scrollDirection: Axis.horizontal,
-                       pageSnapping: true,
-                       children:<Widget> [Container(
-                         child: projectWidget(personaje)
-                      ),
-                      ],
-                    )),
-                    ],
-                  ),
-                  ),
+            body: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              physics: ClampingScrollPhysics(),
+              child: Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(height: 50),
+                    Container(
+                        height: 200,
+                        child: PageView(
+                          controller: PageController(viewportFraction: 0.8),
+                          scrollDirection: Axis.horizontal,
+                          pageSnapping: true,
+                          children: <Widget>[
+                            Container(
+                              child: projectWidget(personaje)),
+                          ],
+                        )),
+                  ],
+                ),
               ),
-           ),
+            ),
+          ),
         ),
-      ), 
+      ),
     );
   }
 
-  Widget listaComics(context,projectSnap){
-      return Scaffold(
-        backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-          child: Container(
-            height: MediaQuery.of(context).size.height,
+  Widget listaComics(context, projectSnap) {
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Stack(
             children: <Widget>[
@@ -206,18 +154,16 @@ class _ResultadosState extends State<Resultados>
                       crossAxisCount: 2),
                   itemBuilder: (context, index) {
                     Serie ser = projectSnap.data[index];
-                  //  Personaje per = projectSnap.data[index];
+                    //  Personaje per = projectSnap.data[index];
 
-                    return Card( 
+                    return Card(
                       elevation: 10,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                         side: BorderSide(color: Colors.white),
                       ),
                       child: new InkWell(
-                        onTap: () {
-                          
-                        },
+                        onTap: () {},
                         child: new Container(
                           constraints: new BoxConstraints.expand(
                             height: 200.0,
@@ -242,7 +188,7 @@ class _ResultadosState extends State<Resultados>
                                 fontSize: 25.0,
                               )),
                         ),
-                      ),        
+                      ),
                     );
                   },
                 ),
@@ -253,16 +199,15 @@ class _ResultadosState extends State<Resultados>
       ),
     );
   }
- Widget projectWidget(Personaje per) {
-    
+
+  Widget projectWidget(Personaje per) {
     return FutureBuilder(
-     
       future: fetchSerie(per.id),
       builder: (context, projectSnap) {
         if (projectSnap.hasError) {
           return Text('Error: ${projectSnap.error}');
         } else if (!projectSnap.hasData) {
-         return null;
+          return null;
         }
         return listaComics(context, projectSnap);
       },
@@ -273,20 +218,20 @@ class _ResultadosState extends State<Resultados>
 /*
 TODO ESTO QUE VIENE AQUÍ ES PARA PODER MODIFICAR EL TAMAÑO DE LA APPBAR, MADRE SANTA 
 */
-  class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double height;
-  
+
   const MyCustomAppBar({
     Key key,
     @required this.height,
   }) : super(key: key);
 
-   @override
+  @override
   Size get preferredSize => Size.fromHeight(height);
 
   @override
   Widget build(BuildContext context) {
-      return Column(
+    return Column(
       children: [
         Container(
           color: Colors.black,
@@ -295,9 +240,8 @@ TODO ESTO QUE VIENE AQUÍ ES PARA PODER MODIFICAR EL TAMAÑO DE LA APPBAR, MADRE
             child: Container(
               color: Colors.black,
               padding: EdgeInsets.all(5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+              child:
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Image(
                   image: AssetImage('assets/login_logo.png'),
                   height: 100,
@@ -310,4 +254,4 @@ TODO ESTO QUE VIENE AQUÍ ES PARA PODER MODIFICAR EL TAMAÑO DE LA APPBAR, MADRE
       ],
     );
   }
-  }
+}
