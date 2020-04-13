@@ -84,35 +84,28 @@ class _SideBarState extends State<SideBar>
                         height: 100,
                       ),
                       UserAccountsDrawerHeader(
-                        accountName: Text("Jennifer Walters", style: TextStyle(
-                          fontWeight: FontWeight.bold
-                         // color: Colors.black,
-                        )),
-                        accountEmail: Text("bestabogadaever@shulkie.com", style: TextStyle(
-                          fontWeight: FontWeight.bold
-                        )),
-                        currentAccountPicture:
-                            Image.asset('assets/hulka.jpg'),
+                        accountName: Text("Jennifer Walters",
+                            style: TextStyle(fontWeight: FontWeight.bold
+                                // color: Colors.black,
+                                )),
+                        accountEmail: Text("bestabogadaever@shulkie.com",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        currentAccountPicture: Image.asset('assets/hulka.jpg'),
                         decoration: BoxDecoration(
-                         color: Colors.black38,
+                          color: Colors.black38,
                         ),
                       ),
                       MenuItem(
                         title: ' ',
                       ),
                       MenuItem(
-                        title: 'Perfil',
-                        icon: Icons.person,
-                        onTap: () {
-                          onIconPressed();
-                          BlocProvider.of<NavigationBloc>(context)
-                              .add(NavigationEvents.ProfilePageClickedEvent);
-                        }
-                      ),
-                      MenuItem(
-                        title: 'Ajustes',
-                        icon: Icons.settings,
-                      ),
+                          title: 'Perfil',
+                          icon: Icons.person,
+                          onTap: () {
+                            onIconPressed();
+                            BlocProvider.of<NavigationBloc>(context)
+                                .add(NavigationEvents.ProfilePageClickedEvent);
+                          }),
                       MenuItem(
                         title: 'Búsqueda',
                         icon: Icons.search,
@@ -121,6 +114,19 @@ class _SideBarState extends State<SideBar>
                           BlocProvider.of<NavigationBloc>(context)
                               .add(NavigationEvents.BusquedaPageClickedEvent);
                         },
+                      ),
+                      MenuItem(
+                        title: 'Leer',
+                        icon: Icons.description,
+                         onTap: () {
+                            onIconPressed();
+                            BlocProvider.of<NavigationBloc>(context)
+                                .add(NavigationEvents.LecturaPageCllickedEvent);
+                          }
+                      ),
+                      MenuItem(
+                          title: 'Ajustes',
+                          icon: Icons.settings,
                       ),
                       MenuItem(
                         title: 'Log Out',

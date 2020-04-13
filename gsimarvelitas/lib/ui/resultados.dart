@@ -7,15 +7,20 @@ import 'package:gsimarvelitas/MenuHamburguesa/navigationBloc.dart';
 
 //import 'package:flutter/rendering.dart';
 
-class Resultados extends StatefulWidget with NavigationStates{
+class Resultados extends StatefulWidget with NavigationStates {
   final Future<Serie> series;
-  final Future<Personaje> personaje; 
-  const Resultados({Key key, this.series, this.personaje, }) : super(key: key);
+  final Future<Personaje> personaje;
+  const Resultados({
+    Key key,
+    this.series,
+    this.personaje,
+  }) : super(key: key);
   @override
   _ResultadosState createState() => _ResultadosState();
 }
 
-class _ResultadosState extends State<Resultados> with SingleTickerProviderStateMixin {
+class _ResultadosState extends State<Resultados>
+    with SingleTickerProviderStateMixin {
   bool isCollapsed = true;
   double screenWidth, screenHeight;
   final Duration duration = const Duration(milliseconds: 500);
@@ -67,7 +72,7 @@ class _ResultadosState extends State<Resultados> with SingleTickerProviderStateM
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Stack(
           children: <Widget>[
-           // menu(context),
+            menu(context),
             AnimatedPositioned(
                 left: isCollapsed ? 0 : 0.6 * screenWidth,
                 right: isCollapsed ? 0 : -0.2 * screenWidth,
@@ -82,6 +87,62 @@ class _ResultadosState extends State<Resultados> with SingleTickerProviderStateM
     );
   }
 
+  Widget menu(context) {
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.only(left: 32.0),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: FractionallySizedBox(
+            widthFactor: 0.6,
+            heightFactor: 0.8,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                UserAccountsDrawerHeader(
+                  accountName: Text("Leonardo DiCaprio"),
+                  accountEmail: Text("bestperritoever@guau.com"),
+                  currentAccountPicture: Image.asset('assets/dicaprio.jpg'),
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                  ),
+                ),
+                ListTile(
+                  title: Text('Perfil'),
+                  leading: Icon(Icons.person),
+                  onTap: () {
+                    Navigator.pushNamed(context, "/perfil");
+                  },
+                ),
+                ListTilze(
+                  title: Text('Ajustes'),
+                  leading: Icon(Icons.settings),
+                ),
+                ListTile(
+                  title: Text('Cambio de Búsqueda'),
+                  leading: Icon(Icons.search),
+                  onTap: () {
+                    Navigator.pushNamed(context, "/busqueda");
+                  },
+                ),
+                ListTile(
+                  title: Text('Log Out'),
+                  leading: Icon(Icons.exit_to_app),
+                  onTap: () {
+                    Navigator.pushNamed(context, "/");
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+    // ),
+    // )
+  }
 
   Widget dashboard(context, personaje) {
     return SafeArea(
@@ -94,41 +155,48 @@ class _ResultadosState extends State<Resultados> with SingleTickerProviderStateM
         child: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
           child: Scaffold(
-            appBar: MyCustomAppBar(
-              height: 150,
+            appBar: AppBar(
+              backgroundColor: Colors.black,
+              centerTitle: true,
+              title:
+                  Image.asset('assets/login_logo.png', height: 350, width: 100),
             ),
-           body:SingleChildScrollView(
-             scrollDirection: Axis.vertical,
-             physics: ClampingScrollPhysics(),
-             child:Container(
-               child : Column(
-                 crossAxisAlignment: CrossAxisAlignment.start,
-                 children: <Widget>[
-                   SizedBox(height: 50),
-                   Container(
-                     height: 200,
-                     child: PageView(
-                       controller: PageController(viewportFraction: 0.8),
-                       scrollDirection: Axis.horizontal,
-                       pageSnapping: true,
-                     //  children: projectWidget()
-                     )
-                   )
-                 ]
-               )
-             ))
+            body: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              physics: ClampingScrollPhysics(),
+              child: Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(height: 50),
+                    Container(
+                        height: 200,
+                        child: PageView(
+                          controller: PageController(viewportFraction: 0.8),
+                          scrollDirection: Axis.horizontal,
+                          pageSnapping: true,
+                          children: <Widget>[
+                            Container(
+                              child: projectWidget(),
+                            )
+                          ],
+                        ))
+                  ],
+                ),
+              ),
             ),
           ),
         ),
-      //),
+      ),
     );
   }
-  Widget listaComics(context,projectSnap){
-      return Scaffold(
-        backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-          child: Container(
-            height: MediaQuery.of(context).size.height,
+
+  Widget listaComics(context, projectSnap) {
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Stack(
             children: <Widget>[
@@ -137,14 +205,13 @@ class _ResultadosState extends State<Resultados> with SingleTickerProviderStateM
                 height: MediaQuery.of(context).size.height,
                 width: double.infinity,
                 child: GridView.builder(
-                    itemCount: projectSnap.data.length,
+                  itemCount: projectSnap.data.length,
                   gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2),
                   itemBuilder: (context, index) {
                     Serie ser = projectSnap.data[index];
                     Personaje per = projectSnap.data[index];
-                    return Card( 
-                    );
+                    return Card();
                   },
                 ),
               ),
@@ -154,7 +221,7 @@ class _ResultadosState extends State<Resultados> with SingleTickerProviderStateM
       ),
     );
   }
- /*  Widget projectWidget() {
+  /*  Widget projectWidget() {
     
     return FutureBuilder(
      
@@ -170,45 +237,3 @@ class _ResultadosState extends State<Resultados> with SingleTickerProviderStateM
     );
   }*/
 }
-  class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final double height;
-  
-/*
-TODO ESTO QUE VIENE AQUÍ ES PARA PODER MODIFICAR EL TAMAÑO DE LA APPBAR, MADRE SANTA 
-*/
-  const MyCustomAppBar({
-    Key key,
-    @required this.height,
-  }) : super(key: key);
-
-   @override
-  Size get preferredSize => Size.fromHeight(height);
-
-  @override
-  Widget build(BuildContext context) {
-      return Column(
-      children: [
-        Container(
-          color: Colors.black,
-          child: Padding(
-            padding: EdgeInsets.all(1),
-            child: Container(
-              color: Colors.black,
-              padding: EdgeInsets.all(5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                Image(
-                  image: AssetImage('assets/login_logo.png'),
-                  height: 100,
-                  width: 100,
-
-                ),
-              ]),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-  }
