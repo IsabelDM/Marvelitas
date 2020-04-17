@@ -21,11 +21,11 @@ class MenuItem extends StatelessWidget {
               size: 30,
             ),
             SizedBox(
-              width: 20,
+              width: 10,
             ),
             Text(
               title,
-              style: TextStyle(fontWeight: FontWeight.w300, fontSize: 26, color: Colors.white),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23, color: Colors.black),
             )
           ],
         ),
@@ -33,3 +33,4 @@ class MenuItem extends StatelessWidget {
     );
   }
 }
+//FontWeight.w300

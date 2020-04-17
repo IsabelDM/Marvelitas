@@ -90,22 +90,23 @@ class _SideBarState extends State<SideBar>
                                 )),
                         accountEmail: Text("bestabogadaever@shulkie.com",
                             style: TextStyle(fontWeight: FontWeight.bold)),
-                        currentAccountPicture: Image.asset('assets/hulka.jpg'),
-                        decoration: BoxDecoration(
+                        currentAccountPicture: new GestureDetector(
+                          onTap:() 
+                          { onIconPressed();
+                            BlocProvider.of<NavigationBloc>(context)
+                                .add(NavigationEvents.ProfilePageClickedEvent);},
+                          child: new CircleAvatar(
+                               backgroundImage: AssetImage('assets/hulka.jpg')),
+                        
+                       ),
+                         decoration: BoxDecoration(
                           color: Colors.black38,
                         ),
+                      
                       ),
                       MenuItem(
-                        title: ' ',
-                      ),
-                      MenuItem(
-                          title: 'Perfil',
-                          icon: Icons.person,
-                          onTap: () {
-                            onIconPressed();
-                            BlocProvider.of<NavigationBloc>(context)
-                                .add(NavigationEvents.ProfilePageClickedEvent);
-                          }),
+                          title: ' '
+                          ),
                       MenuItem(
                         title: 'Búsqueda',
                         icon: Icons.search,
