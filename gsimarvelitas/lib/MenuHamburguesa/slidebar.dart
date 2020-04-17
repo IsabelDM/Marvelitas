@@ -121,8 +121,8 @@ class _SideBarState extends State<SideBar>
                         icon: Icons.description,
                          onTap: () {
                             onIconPressed();
-                            BlocProvider.of<NavigationBloc>(context)
-                                .add(NavigationEvents.LecturaPageCllickedEvent);
+                           /* BlocProvider.of<NavigationBloc>(context)
+                                .add(NavigationEvents.LecturaPageClickedEvent);*/
                           }
                       ),
                       MenuItem(

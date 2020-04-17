@@ -6,12 +6,13 @@ import 'package:gsimarvelitas/ui/profile_page_design.dart';
 import 'package:gsimarvelitas/ui/resultados.dart';
 import 'package:gsimarvelitas/ui/lecturaPage.dart';
 
+
 enum NavigationEvents {
   BusquedaPageClickedEvent,
   ConfiguracionClickedEvent,
   ProfilePageClickedEvent,
   ResultadosClickedEvent,
-  LecturaPageCllickedEvent,
+  LecturaClickedEvent
 }
 
 abstract class NavigationStates {}
@@ -35,7 +36,7 @@ class NavigationBloc extends Bloc<NavigationEvents, NavigationStates> {
       case NavigationEvents.ResultadosClickedEvent:
         yield Resultados();
         break;
-          case NavigationEvents.LecturaPageCllickedEvent:
+              case NavigationEvents.LecturaClickedEvent:
         yield EpubWidget();
         break;
     }

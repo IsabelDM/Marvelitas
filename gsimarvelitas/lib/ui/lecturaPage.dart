@@ -1,73 +1,10 @@
-import 'dart:async';
-import 'dart:io';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
 import 'package:gsimarvelitas/MenuHamburguesa/navigationBloc.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:http/http.dart' as http;
+import 'package:epub/epub.dart' as epub;
+import 'package:image/image.dart' as image;
 
 void main() => runApp(EpubWidget());
-final List<String> imgList = [
-  'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
-  'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
-  'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1950&q=80',
-  'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=89719a0d55dd05e2deae4120227e6efc&auto=format&fit=crop&w=1953&q=80',
-  'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
-  'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
-];
-Widget placeholder = Container(color: Colors.grey);
-
-final List child = map<Widget>(
-  imgList,
-  (index, img) {
-    return Container(
-      margin: EdgeInsets.all(5.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(5.0)),
-        child: Stack(children: <Widget>[
-          Image.network(img, fit: BoxFit.cover, width: 1000.0),
-          Positioned(
-            bottom: 0.0,
-            left: 0.0,
-            right: 0.0,
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Color.fromARGB(200, 0, 0, 0),
-                    Color.fromARGB(0, 0, 0, 0)
-                  ],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                ),
-              ),
-              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-              child: Text(
-                'No. $index image',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-        ]),
-      ),
-    );
-  },
-).toList();
-
-List<T> map<T>(List list, Function handler) {
-  List<T> result = [];
-  for (var i = 0; i < list.length; i++) {
-    result.add(handler(i, list[i]));
-  }
-
-  return result;
-}
 
 class EpubWidget extends StatefulWidget with NavigationStates {
   @override
@@ -77,350 +14,180 @@ class EpubWidget extends StatefulWidget with NavigationStates {
 }
 
 class EpubState extends State<EpubWidget> {
-  int _current = 0;
+  Future<epub.EpubBookRef> book;
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(children: [
-      CarouselSlider(
-        items: child,
-        autoPlay: true,
-        enlargeCenterPage: true,
-        aspectRatio: 2.0,
-        onPageChanged: (index) {
-          setState(() {
-            _current = index;
-          });
-        },
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: map<Widget>(
-          imgList,
-          (index, url) {
-            return Container(
-              width: 8.0,
-              height: 8.0,
-              margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: _current == index
-                      ? Color.fromRGBO(0, 0, 0, 0.9)
-                      : Color.fromRGBO(0, 0, 0, 0.4)),
-            
-            );
-          },
-        ),
-      ),
-    ]);
+  final _urlController = TextEditingController();
+
+  void fetchBookButton() {
+    setState(() {
+      book = fetchBook(_urlController.text);
+    });
   }
-}
 
-class CarouselDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //Manually operated Carousel
-    final CarouselSlider manualCarouselDemo = CarouselSlider(
-      items: child,
-      autoPlay: false,
-      enlargeCenterPage: true,
-      viewportFraction: 0.9,
-      aspectRatio: 2.0,
-    );
-
-    //Auto playing carousel
-    final CarouselSlider autoPlayDemo = CarouselSlider(
-      viewportFraction: 0.9,
-      aspectRatio: 2.0,
-      autoPlay: true,
-      enlargeCenterPage: true,
-      items: imgList.map(
-        (url) {
-          return Container(
-            margin: EdgeInsets.all(5.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              child: Image.network(
-                url,
-                fit: BoxFit.cover,
-                width: 1000.0,
-              ),
-            ),
-          );
-        },
-      ).toList(),
-    );
-
-    //Button controlled carousel
-    Widget buttonDemo() {
-      final basicSlider = CarouselSlider(
-        items: child,
-        autoPlay: false,
-        enlargeCenterPage: true,
-        viewportFraction: 0.9,
-        aspectRatio: 2.0,
-        initialPage: 2,
-      );
-      return Column(children: [
-        basicSlider,
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Flexible(
-            child: RaisedButton(
-              onPressed: () => basicSlider.previousPage(
-                  duration: Duration(milliseconds: 300), curve: Curves.linear),
-              child: Text('←'),
-            ),
-          ),
-          Flexible(
-            child: RaisedButton(
-              onPressed: () => basicSlider.nextPage(
-                  duration: Duration(milliseconds: 300), curve: Curves.linear),
-              child: Text('→'),
-            ),
-          ),
-          ...Iterable<int>.generate(imgList.length).map(
-            (int pageIndex) => Flexible(
-              child: RaisedButton(
-                onPressed: () => basicSlider.animateToPage(pageIndex,
-                    duration: Duration(milliseconds: 300),
-                    curve: Curves.linear),
-                child: Text("$pageIndex"),
-              ),
-            ),
-          ),
-        ]),
-      ]);
-    }
-
-    //Pages covers entire carousel
-    final CarouselSlider coverScreenExample = CarouselSlider(
-      viewportFraction: 1.0,
-      aspectRatio: 2.0,
-      autoPlay: false,
-      enlargeCenterPage: false,
-      items: map<Widget>(
-        imgList,
-        (index, i) {
-          return Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(image: NetworkImage(i), fit: BoxFit.cover),
-            ),
-          );
-        },
-      ),
-    );
-
-    //User input pauses carousels automatic playback
-    final CarouselSlider touchDetectionDemo = CarouselSlider(
-      viewportFraction: 0.9,
-      aspectRatio: 2.0,
-      autoPlay: true,
-      enlargeCenterPage: true,
-      pauseAutoPlayOnTouch: Duration(seconds: 3),
-      items: imgList.map(
-        (url) {
-          return Container(
-            margin: EdgeInsets.all(5.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              child: Image.network(
-                url,
-                fit: BoxFit.cover,
-                width: 1000.0,
-              ),
-            ),
-          );
-        },
-      ).toList(),
-    );
-
-    //Non-looping manual Carousel
-    final CarouselSlider nonLoopingCarousel = CarouselSlider(
-      items: child,
-      scrollPhysics: BouncingScrollPhysics(),
-      enableInfiniteScroll: false,
-      autoPlay: false,
-      enlargeCenterPage: true,
-      viewportFraction: 0.9,
-      aspectRatio: 2.0,
-    );
-
-    //Vertical carousel
-    final CarouselSlider verticalScrollCarousel = CarouselSlider(
-      scrollDirection: Axis.vertical,
-      aspectRatio: 2.0,
-      autoPlay: true,
-      enlargeCenterPage: true,
-      viewportFraction: 0.9,
-      pauseAutoPlayOnTouch: Duration(seconds: 3),
-      items: imgList.map(
-        (url) {
-          return Container(
-            margin: EdgeInsets.all(5.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              child: Image.network(
-                url,
-                fit: BoxFit.cover,
-                width: 1000.0,
-              ),
-            ),
-          );
-        },
-      ).toList(),
-    );
-
-    //create full screen Carousel with context
-    CarouselSlider getFullScreenCarousel(BuildContext mediaContext) {
-      return CarouselSlider(
-        autoPlay: true,
-        viewportFraction: 1.0,
-        aspectRatio: MediaQuery.of(mediaContext).size.aspectRatio,
-        items: imgList.map(
-          (url) {
-            return Container(
-              child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(0.0)),
-                child: Image.network(
-                  url,
-                  fit: BoxFit.cover,
-                  width: 1000.0,
-                ),
-              ),
-            );
-          },
-        ).toList(),
-      );
-    }
-
-    CarouselSlider getOnDemandCarousel(BuildContext mediaContext) {
-      return CarouselSlider.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 15,
-        itemBuilder: (BuildContext context, int itemIndex) => Container(
-          child: Text(itemIndex.toString()),
-        ),
-      );
-    }
-
     return MaterialApp(
-      title: 'demo',
-      home: Scaffold(
-        appBar: AppBar(title: Text('Carousel slider demo')),
-        body: ListView(
-          children: <Widget>[
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0),
-                child: Column(children: [
-                  Text('Manuell Carousel'),
-                  manualCarouselDemo,
-                ])),
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0),
-                child: Column(children: [
-                  Text('Auto Playing Carousel'),
-                  autoPlayDemo,
-                ])),
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0),
-                child: Column(children: [
-                  Text('Button Controlled Carousel'),
-                  buttonDemo(),
-                ])),
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0),
-                child: Column(children: [
-                  Text('Full Screen Carousel'),
-                  coverScreenExample,
-                ])),
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0),
-                child: Column(children: [
-                  Text('Carousel With Indecator'),
-                  EpubWidget(),
-                ])),
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0),
-                child: Column(children: [
-                  Text('Pause When Touched Carousel'),
-                  touchDetectionDemo,
-                ])),
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0),
-                child: Column(children: [
-                  Text('No infinity scroll carousel'),
-                  nonLoopingCarousel,
-                ])),
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0),
-                child: Column(children: [
-                  Text('Vertical scroll carousel'),
-                  verticalScrollCarousel,
-                ])),
-            Padding(
-                padding: EdgeInsets.only(top: 15.0),
-                //Builder needed to provide mediaQuery context from material app
-                child: Builder(builder: (context) {
-                  return Column(children: [
-                    Text('Full screen carousel'),
-                    getFullScreenCarousel(context),
-                  ]);
-                })),
-            Padding(
-                padding: EdgeInsets.only(top: 15.0),
-                child: Builder(builder: (context) {
-                  return Column(children: [
-                    Text('On demand item carousel'),
-                    getOnDemandCarousel(context),
-                  ]);
-                })),
-          ],
-        ),
-      ),
-    );
-  }
-}
-/*
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Plugin example app')),
-      body: Center(
-        child: RaisedButton(
-          elevation: 0.0,
-          padding:
-              EdgeInsets.only(top: 7.0, bottom: 7.0, right: 40.0, left: 7.0),
-          child: new Row(
-            children: <Widget>[
-              new Image.asset('assets/PortadaNoAcoso.jpg',
-                  height: 80.0, width: 80.0),
-            ],
-          ),
-          onPressed: () => Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => PDFScreen(pathPDF)),
-          ),
-        ),
-      ),
-    );
+        debugShowCheckedModeBanner: false,
+        title: "Fetch Epub Example",
+        home: new Material(
+            child: new Container(
+                padding: const EdgeInsets.all(30.0),
+                color: Colors.white,
+                child: new Container(
+                  child: new Center(
+                      child: new ListView(children: [
+                    new Padding(padding: EdgeInsets.only(top: 70.0)),
+                    new Text(
+                      'Epub Inspector',
+                      style: new TextStyle(fontSize: 25.0),
+                    ),
+                    new Padding(padding: EdgeInsets.only(top: 50.0)),
+                    new Text(
+                      'Enter the Url of an Epub to view some of it\'s metadata.',
+                      style: new TextStyle(fontSize: 18.0),
+                      textAlign: TextAlign.center,
+                    ),
+                    new Padding(padding: EdgeInsets.only(top: 20.0)),
+                    new TextFormField(
+                      decoration: new InputDecoration(
+                        labelText: "Enter Url",
+                        fillColor: Colors.white,
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(25.0),
+                          borderSide: new BorderSide(),
+                        ),
+                      ),
+                      validator: (val) {
+                        if (val.length == 0) {
+                          return "Url cannot be empty";
+                        } else {
+                          return null;
+                        }
+                      },
+                      controller: _urlController,
+                      keyboardType: TextInputType.url,
+                      style: new TextStyle(
+                        fontFamily: "Poppins",
+                      ),
+                    ),
+                    new Padding(
+                      padding: EdgeInsets.only(top: 20.0),
+                    ),
+                    new RaisedButton(
+                      padding: const EdgeInsets.all(8.0),
+                      textColor: Colors.white,
+                      color: Colors.blue,
+                      onPressed: fetchBookButton,
+                      child: new Text("Inspect Book"),
+                    ),
+                    new Padding(padding: EdgeInsets.only(top: 25.0)),
+                    Center(
+                      child: FutureBuilder<epub.EpubBookRef>(
+                        future: book,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return new Material(
+                                color: Colors.white,
+                                //child: Container());
+                                child: buildEpubWidget(snapshot.data));
+                          } else if (snapshot.hasError) {
+                            return Text("${snapshot.error}");
+                          }
+                          // By default, show a loading spinner
+                          //return CircularProgressIndicator();
+
+                          // By default, show just empty.
+                          return Container();
+                        },
+                      ),
+                    ),
+                  ])),
+                ))));
   }
 }
 
-class PDFScreen extends StatelessWidget {
-  String pathPDF = "";
-  PDFScreen(this.pathPDF);
+Widget buildEpubWidget(epub.EpubBookRef book) {
+  var chapters = book.getChapters();
+  var cover = book.readCover();
+  return Container(
+      child: new Column(
+    children: <Widget>[
+      Text(
+        "Title",
+        style: TextStyle(fontSize: 20.0),
+      ),
+      Text(
+        book.Title,
+        style: TextStyle(fontSize: 15.0),
+      ),
+      new Padding(
+        padding: EdgeInsets.only(top: 15.0),
+      ),
+      Text(
+        "Author",
+        style: TextStyle(fontSize: 20.0),
+      ),
+      Text(
+        book.Author,
+        style: TextStyle(fontSize: 15.0),
+      ),
+      new Padding(
+        padding: EdgeInsets.only(top: 15.0),
+      ),
+      FutureBuilder<List<epub.EpubChapterRef>>(
+          future: chapters,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return Column(
+                children: <Widget>[
+                  Text("Chapters", style: TextStyle(fontSize: 20.0)),
+                  Text(
+                    snapshot.data.length.toString(),
+                    style: TextStyle(fontSize: 15.0),
+                  )
+                ],
+              );
+            } else if (snapshot.hasError) {
+              return Text("${snapshot.error}");
+            }
+            return Container();
+          }),
+      new Padding(
+        padding: EdgeInsets.only(top: 15.0),
+      ),
+      FutureBuilder<epub.Image>(
+        future: cover,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Column(
+              children: <Widget>[
+                Text("Cover", style: TextStyle(fontSize: 20.0)),
+                Image.memory(image.encodePng(snapshot.data)),
+              ],
+            );
+          } else if (snapshot.hasError) {
+            return Text("${snapshot.error}");
+          }
+          return Container();
+        },
+      ),
+    ],
+  ));
+}
 
-  @override
-  Widget build(BuildContext context) {
-    return PDFViewerScaffold(
-        appBar: AppBar(
-          title: Text("Libro"),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.share),
-              onPressed: () {},
-            ),
-          ],
-        ),
-        path: pathPDF);
-  }*/
+// Needs a url to a valid url to an epub such as
+// https://www.gutenberg.org/ebooks/11.epub.images
+// or
+// https://www.gutenberg.org/ebooks/19002.epub.images
+Future<epub.EpubBookRef> fetchBook(String url) async {
+  // Hard coded to Alice Adventures In Wonderland in Project Gutenberb
+  final response = await http.get(url);
+
+  if (response.statusCode == 200) {
+    // If server returns an OK response, parse the EPUB
+    return epub.EpubReader.openBook(response.bodyBytes);
+  } else {
+    // If that response was not OK, throw an error.
+    throw Exception('Failed to load epub');
+  }
+} 

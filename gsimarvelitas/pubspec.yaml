@@ -13,13 +13,10 @@ dependencies:
   dio: 1.0.0
   google_fonts: ^0.3.9
   flutter_full_pdf_viewer: ^1.0.6
-  webview_flutter: ^0.1.1
   cupertino_icons: ^0.1.2
-  firebase_auth:  ^0.16.0
-  cloud_firestore: ^0.13.5
-  google_sign_in: ^4.4.1
+  epub: ^2.0.0
   flutter_bloc: ^3.2.0
-  firebase_database: ^3.0.7
+
 
 
 dev_dependencies:

@@ -6,7 +6,7 @@ import 'package:gsimarvelitas/utils/bubble_indication_painter.dart';
 import 'package:gsimarvelitas/utils/my_flutter_app_icons.dart';
 import 'package:gsimarvelitas/MenuHamburguesa/navigationBloc.dart';
 
-class LoginPage extends StatefulWidget with NavigationStates{
+class LoginPage extends StatefulWidget with NavigationStates {
   LoginPage({Key key}) : super(key: key);
 
   @override
@@ -118,6 +118,7 @@ class _LoginPageState extends State<LoginPage>
     myFocusNodeEmail.dispose();
     myFocusNodeName.dispose();
     _pageController?.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 
@@ -326,7 +327,7 @@ class _LoginPageState extends State<LoginPage>
                   ),
                   
                   onPressed: () {
-                    BlocProvider.of<NavigationBloc>(context)
+                   BlocProvider.of<NavigationBloc>(context)
                         .add(NavigationEvents.BusquedaPageClickedEvent);
                   },
                 ),
@@ -369,7 +370,7 @@ class _LoginPageState extends State<LoginPage>
                 Padding(
                   padding: EdgeInsets.only(left: 15.0, right: 15.0),
                   child: Text(
-                    "Otras plataformas",
+                    "O",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 16.0,
@@ -565,7 +566,7 @@ class _LoginPageState extends State<LoginPage>
                               fontFamily: "WorkSansSemiBold",
                               fontSize: 16.0,
                               color: Colors.black),
-                          decoration: InputDecoration(
+                          decoration: new InputDecoration(
                             border: InputBorder.none,
                             icon: Icon(
                               FontAwesomeIcons.lock,
