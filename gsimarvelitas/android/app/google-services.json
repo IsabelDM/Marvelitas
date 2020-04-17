@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "208351632390",
+    "firebase_url": "https://marvelitas-1f7db.firebaseio.com",
+    "project_id": "marvelitas-1f7db",
+    "storage_bucket": "marvelitas-1f7db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:208351632390:android:f21f10a57212af2da6b787",
+        "android_client_info": {
+          "package_name": "com.example.gsimarvelitas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "208351632390-9nbk12edahnbsqv3dkk84rsi1l3p99p0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDL5A_idDhstxbu7Vr2ChyA8gO_X0xI_uM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "208351632390-9nbk12edahnbsqv3dkk84rsi1l3p99p0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

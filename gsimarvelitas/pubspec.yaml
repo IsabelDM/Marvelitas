@@ -14,11 +14,13 @@ dependencies:
   google_fonts: ^0.3.9
   flutter_full_pdf_viewer: ^1.0.6
   webview_flutter: ^0.1.1
-  url_launcher: ^4.0.2
-
-
   cupertino_icons: ^0.1.2
-  flutter_bloc: ^2.1.1
+  firebase_auth:  ^0.16.0
+  cloud_firestore: ^0.13.5
+  google_sign_in: ^4.4.1
+  flutter_bloc: ^3.2.0
+  firebase_database: ^3.0.7
+
 
 dev_dependencies:
   flutter_test:

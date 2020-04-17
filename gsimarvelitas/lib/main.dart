@@ -5,6 +5,9 @@ import 'package:gsimarvelitas/ui/login_page.dart';
 import 'package:gsimarvelitas/ui/profile_page_design.dart';
 import 'package:gsimarvelitas/ui/resultados.dart';
 import 'package:gsimarvelitas/MenuHamburguesa/sidebarLayout.dart';
+import 'package:gsimarvelitas/login/root_page.dart';
+import 'package:gsimarvelitas/login/authentication.dart';
+
 
 void main() => runApp(new MyApp());
 
@@ -25,7 +28,7 @@ class MyApp extends StatelessWidget {
         "/resultados": (BuildContext context) => Resultados(),
         "/perfil": (BuildContext context) => ProfilePageDesign(),
       },
-      home: SideBarLayout(),
+      home: LoginPage()
     );
   }
 }
