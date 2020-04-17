@@ -417,7 +417,9 @@ class _LoginPageState extends State<LoginPage>
               Padding(
                 padding: EdgeInsets.only(top: 10.0),
                 child: GestureDetector(
-                  onTap: () => showInSnackBar("Google button pressed"),
+                 onTap: (){
+                   
+                 },
                   child: Container(
                     padding: const EdgeInsets.all(15.0),
                     decoration: new BoxDecoration(
