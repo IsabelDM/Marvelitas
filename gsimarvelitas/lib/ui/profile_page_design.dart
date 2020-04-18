@@ -3,9 +3,7 @@ import 'package:flutter/services.dart';
 import 'dart:math' as math;
 
 import 'package:gsimarvelitas/MenuHamburguesa/navigationBloc.dart';
-
-
-
+import 'package:toast/toast.dart';
 
 
 class ProfilePageDesign extends StatefulWidget with NavigationStates {
@@ -117,7 +115,9 @@ class CustomAppBar extends StatelessWidget
             
                 IconButton(
                   icon: Icon(Icons.notifications, color: Colors.black,),
-                  onPressed: (){},
+                  onPressed: (){
+                   Toast.show("No tienes notificaciones", context, duration: Toast.LENGTH_SHORT, gravity: Toast.TOP);
+                  },
                 )
               ],
             ),

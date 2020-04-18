@@ -73,8 +73,8 @@ class _ResultadosState extends State<Resultados>
       },
       child: Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        body: Stack(
-          children: <Widget>[
+        body: Center(
+         /* children: <Widget>[
             AnimatedPositioned(
                 left: isCollapsed ? 0 : 0.6 * screenWidth,
                 right: isCollapsed ? 0 : -0.2 * screenWidth,
@@ -83,7 +83,10 @@ class _ResultadosState extends State<Resultados>
                 duration: duration,
                 curve: Curves.fastOutSlowIn,
                 child: dashboard(context, pers)),
-          ],
+          ],*/
+          child: dashboard(context, pers),
+            
+        
         ),
       ),
     );
@@ -96,17 +99,20 @@ class _ResultadosState extends State<Resultados>
         type: MaterialType.card,
         animationDuration: duration,
         color: Theme.of(context).scaffoldBackgroundColor,
-        elevation: 8,
+        elevation: 10,
         child: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
           child: Scaffold(
-            appBar: AppBar(
+           appBar: AppBar(
               backgroundColor: Colors.black,
               centerTitle: true,
               title:
                   Image.asset('assets/login_logo.png', height: 350, width: 100),
             ),
+          /*  appBar: MyCustomAppBar(height: 150,
+            ),*/
             body: SingleChildScrollView(
+              
               scrollDirection: Axis.vertical,
               physics: ClampingScrollPhysics(),
               child: Container(
@@ -115,7 +121,7 @@ class _ResultadosState extends State<Resultados>
                   children: <Widget>[
                     SizedBox(height: 50),
                     Container(
-                        height: 200,
+                        height: 450,
                         child: PageView(
                           controller: PageController(viewportFraction: 0.8),
                           scrollDirection: Axis.horizontal,
