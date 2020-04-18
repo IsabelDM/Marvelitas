@@ -32,7 +32,7 @@ class EpubState extends State<EpubWidget> {
 
   Future<File> createFileOfPdfUrl() async {
     final url =
-        "https://www.is4k.es/sites/default/files/contenidos/los_vengadores_acoso_nunca_mas_marvel_panini_is4k.pdf";
+        "https://firebasestorage.googleapis.com/v0/b/marvelitas-1f7db.appspot.com/o/Spider-Gwen.pdf?alt=media&token=415fa7d1-5596-42a4-b5ed-34c1790b6a4b";
     final filename = url.substring(url.lastIndexOf("/") + 1);
     var request = await HttpClient().getUrl(Uri.parse(url));
     var response = await request.close();
@@ -77,7 +77,7 @@ class EpubState extends State<EpubWidget> {
 }
 
 class PDFScreen extends StatelessWidget {
-  String pathPDF = "";
+  String pathPDF = "https://firebasestorage.googleapis.com/v0/b/marvelitas-1f7db.appspot.com/o/Spider-Gwen.pdf?alt=media&token=415fa7d1-5596-42a4-b5ed-34c1790b6a4b";
   PDFScreen(this.pathPDF);
 
   @override
