@@ -209,7 +209,7 @@ class _ResultadosState extends State<Resultados>
         if (projectSnap.hasError) {
           return Text('Error: ${projectSnap.error}');
         } else if (!projectSnap.hasData) {
-          return null;
+          return (Image.asset('assets/loading.gif'));
         }
         return listaComics(context, projectSnap);
       },

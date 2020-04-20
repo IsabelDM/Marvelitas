@@ -23,6 +23,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  giffy_dialog: ^1.6.1
 
   font_awesome_flutter: ^8.0.1
   flutter_launcher_icons: ^0.7.3
@@ -53,6 +54,7 @@ flutter:
       - assets/hulka2.jpg
       - assets/espaidermangris.jpg
       - assets/PortadaNoAcoso.jpg
+      - assets/loading.gif
 
   fonts:
     - family: MyFlutterApp
