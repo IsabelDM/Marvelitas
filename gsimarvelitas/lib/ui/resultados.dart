@@ -54,7 +54,7 @@ class _ResultadosState extends State<Resultados>
 
   @override
   Widget build(BuildContext context) {
-     final Personaje pers = ModalRoute.of(context).settings.arguments;
+    final Personaje pers = ModalRoute.of(context).settings.arguments;
     Size size = MediaQuery.of(context).size;
     screenHeight = size.height;
     screenWidth = size.width;
@@ -85,8 +85,6 @@ class _ResultadosState extends State<Resultados>
                 child: dashboard(context, pers)),
           ],*/
           child: dashboard(context, pers),
-            
-        
         ),
       ),
     );
@@ -111,17 +109,16 @@ class _ResultadosState extends State<Resultados>
             ),
           /*  appBar: MyCustomAppBar(height: 150,
             ),*/
-            body: SingleChildScrollView(
-              
+            body: SingleChildScrollView( 
               scrollDirection: Axis.vertical,
               physics: ClampingScrollPhysics(),
-              child: Container(
+              child: Container(   
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    SizedBox(height: 50),
+                   SizedBox(height: 30),
                     Container(
-                        height: 450,
+                        height: 620,
                         child: PageView(
                           controller: PageController(viewportFraction: 0.8),
                           scrollDirection: Axis.horizontal,
@@ -134,9 +131,9 @@ class _ResultadosState extends State<Resultados>
                   ],
                 ),
               ),
-            ),
           ),
         ),
+      ),
       ),
     );
   }
@@ -144,14 +141,14 @@ class _ResultadosState extends State<Resultados>
   Widget listaComics(context, projectSnap) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
+      body: SingleChildScrollView(  
         child: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Stack(
             children: <Widget>[
               Container(
-                padding: EdgeInsets.only(top: 145),
+                padding: EdgeInsets.only(top: 2),
                 height: MediaQuery.of(context).size.height,
                 width: double.infinity,
                 child: GridView.builder(
@@ -161,7 +158,6 @@ class _ResultadosState extends State<Resultados>
                   itemBuilder: (context, index) {
                     Serie ser = projectSnap.data[index];
                     //  Personaje per = projectSnap.data[index];
-
                     return Card(
                       elevation: 10,
                       shape: RoundedRectangleBorder(
