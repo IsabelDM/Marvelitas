@@ -15,6 +15,43 @@
       },
       "oauth_client": [
         {
+          "client_id": "208351632390-i0p2f980fb7f4bq08q882bod8imn4er4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gsimarvelitas",
+            "certificate_hash": "f89c4e617acef35db889c9563927205b44f27592"
+          }
+        },
+        {
+          "client_id": "208351632390-9nbk12edahnbsqv3dkk84rsi1l3p99p0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDL5A_idDhstxbu7Vr2ChyA8gO_X0xI_uM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "208351632390-9nbk12edahnbsqv3dkk84rsi1l3p99p0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:208351632390:android:7b6e05d4bdfd2dbca6b787",
+        "android_client_info": {
+          "package_name": "com.gsimarvelitas.a2020"
+        }
+      },
+      "oauth_client": [
+        {
           "client_id": "208351632390-9nbk12edahnbsqv3dkk84rsi1l3p99p0.apps.googleusercontent.com",
           "client_type": 3
         }

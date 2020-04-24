@@ -1,21 +1,27 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gsimarvelitas/APIRest/personaje.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gsimarvelitas/MenuHamburguesa/navigationBloc.dart';
+import 'package:flutter/foundation.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:getflutter/getflutter.dart';
 
 class BusquedaPage extends StatefulWidget with NavigationStates {
   final Future<Personaje> personaje;
-  const BusquedaPage({Key key, this.personaje,})
-      : super(key: key);
+  const BusquedaPage({
+    Key key,
+    this.personaje,
+  }) : super(key: key);
 
   @override
   _BusquedaPageState createState() => _BusquedaPageState();
 }
 
 class _BusquedaPageState extends State<BusquedaPage> {
+  List<String> lines;
   final myController = TextEditingController();
   @override
   void dispose() {
@@ -138,8 +144,10 @@ class _BusquedaPageState extends State<BusquedaPage> {
                       ),
                       child: new InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context,'/resultados', arguments: per);
-                         /*  BlocProvider.of<NavigationBloc>(context)
+                          _write(per.name);
+                          Navigator.pushNamed(context, '/resultados',
+                              arguments: per);
+                          /*  BlocProvider.of<NavigationBloc>(context)
                         .add(NavigationEvents.ResultadosClickedEvent, arguments: per);*/
                         },
                         child: new Container(
@@ -186,10 +194,103 @@ class _BusquedaPageState extends State<BusquedaPage> {
         if (projectSnap.hasError) {
           return Text('Error: ${projectSnap.error}');
         } else if (!projectSnap.hasData) {
-          return busca();
+          return mostrarHistorial();
         }
         return listaPersonajes(context, projectSnap);
       },
     );
+  }
+
+  Widget historial(context, lines) {
+    return Container(
+      child: new ListView(
+        children: <Widget>[
+          busca(),
+          Text(
+            "Historial",
+            textAlign: TextAlign.center,
+            style: GoogleFonts.amarante(
+                color: Colors.red,
+                fontSize: 50.0,
+                backgroundColor: Colors.black),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 15),
+            height: MediaQuery.of(context).size.height,
+            width: double.infinity,
+            child: ListView.builder(
+                itemCount: lines.data.length,
+                itemBuilder: (context, index) {
+                  String historial = lines.data[index];
+                  return Container(
+                    height: 50.0,
+                    child: Card(
+                      elevation: 10,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        side: BorderSide(color: Colors.black38),
+                      ),
+                      child: new InkWell(
+                        onTap: () {
+                          /* Navigator.pushNamed(context, '/resultados',
+                                arguments: historial);*/
+                          /*  BlocProvider.of<NavigationBloc>(context)
+                        .add(NavigationEvents.ResultadosClickedEvent, arguments: per);*/
+                        },
+                        child: Container(
+                          child: Center(
+                            child: Text(
+                              historial.toString(),
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.specialElite(
+                                color: Colors.black,
+                                fontSize: 20.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+          ),
+        ],
+      ),
+    );
+  }
+
+  //HISTORIAL
+  _write(String text) async {
+    final filename = 'historial.txt';
+    String dir = (await getApplicationDocumentsDirectory()).path;
+    final File file = File('$dir/$filename');
+    await file.writeAsString(text + "\n", mode: FileMode.append, flush: false);
+    print("Archivo: $file");
+  }
+
+  Future<List<String>> _read() async {
+    try {
+      final filename = 'historial.txt';
+      String dir = (await getApplicationDocumentsDirectory()).path;
+      final File file = File('$dir/$filename');
+      lines = file.readAsLinesSync();
+      print(lines);
+      historial(context, lines);
+    } catch (e) {
+      print(e.toString());
+    }
+    return lines;
+  }
+
+  mostrarHistorial() {
+    return FutureBuilder<List<String>>(
+        future: _read(),
+        builder: (context, lines) {
+          if (lines.hasData) {
+            return historial(context, lines);
+          } else {
+            return CircularProgressIndicator();
+          }
+        });
   }
 }

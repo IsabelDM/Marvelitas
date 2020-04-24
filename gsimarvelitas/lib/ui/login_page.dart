@@ -314,7 +314,7 @@ class _LoginPageState extends State<LoginPage>
   }
 
   Widget _buildSignIn(BuildContext context) {
-    return Scaffold(
+    //return Scaffold(
     return Container(
       padding: EdgeInsets.only(top: 23.0),
       child: Column(
@@ -540,7 +540,7 @@ class _LoginPageState extends State<LoginPage>
             ],
           ),
         ],
-      ),
+    //  ),
     ),);
   }
 
