@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:getflutter/getflutter.dart';
 import 'package:rxdart/rxdart.dart';
 import '../MenuHamburguesa/navigationBloc.dart';
 import '../MenuHamburguesa/menuItem.dart';
@@ -91,22 +92,19 @@ class _SideBarState extends State<SideBar>
                         accountEmail: Text("bestabogadaever@shulkie.com",
                             style: TextStyle(fontWeight: FontWeight.bold)),
                         currentAccountPicture: new GestureDetector(
-                          onTap:() 
-                          { onIconPressed();
+                          onTap: () {
+                            onIconPressed();
                             BlocProvider.of<NavigationBloc>(context)
-                                .add(NavigationEvents.ProfilePageClickedEvent);},
+                                .add(NavigationEvents.ProfilePageClickedEvent);
+                          },
                           child: new CircleAvatar(
-                               backgroundImage: AssetImage('assets/hulka.jpg')),
-                        
-                       ),
-                         decoration: BoxDecoration(
+                              backgroundImage: AssetImage('assets/hulka.jpg')),
+                        ),
+                        decoration: BoxDecoration(
                           color: Colors.black38,
                         ),
-                      
                       ),
-                      MenuItem(
-                          title: ' '
-                          ),
+                      MenuItem(title: ' '),
                       MenuItem(
                         title: 'Búsqueda',
                         icon: Icons.search,
@@ -117,17 +115,16 @@ class _SideBarState extends State<SideBar>
                         },
                       ),
                       MenuItem(
-                        title: 'Leer',
-                        icon: Icons.description,
-                         onTap: () {
+                          title: 'Leer',
+                          icon: Icons.description,
+                          onTap: () {
                             onIconPressed();
-                           BlocProvider.of<NavigationBloc>(context)
+                            BlocProvider.of<NavigationBloc>(context)
                                 .add(NavigationEvents.LecturaClickedEvent);
-                          }
-                      ),
+                          }),
                       MenuItem(
-                          title: 'Ajustes',
-                          icon: Icons.settings,
+                        title: 'Ajustes',
+                        icon: Icons.settings,
                       ),
                       MenuItem(
                         title: 'Log Out',

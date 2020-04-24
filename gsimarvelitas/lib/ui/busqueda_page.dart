@@ -7,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:gsimarvelitas/MenuHamburguesa/navigationBloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:getflutter/getflutter.dart';
 
 class BusquedaPage extends StatefulWidget with NavigationStates {
   final Future<Personaje> personaje;
@@ -22,11 +21,24 @@ class BusquedaPage extends StatefulWidget with NavigationStates {
 
 class _BusquedaPageState extends State<BusquedaPage> {
   List<String> lines;
-  final myController = TextEditingController();
+  final _myController = TextEditingController();
+
   @override
   void dispose() {
-    myController.dispose();
+    _myController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _myController.addListener(_printLatestValue);
+  }
+
+  _printLatestValue() {
+    fetchPost(_myController.text);
+    setState(() {});
+    print("busqueda_page: " + _myController.text);
   }
 
   @override
@@ -42,18 +54,6 @@ class _BusquedaPageState extends State<BusquedaPage> {
         ),
       ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    myController.addListener(_printLatestValue);
-  }
-
-  _printLatestValue() {
-    fetchPost(myController.text);
-    setState(() {});
-    print("busqueda_page: " + myController.text);
   }
 
   Widget busca() {
@@ -106,7 +106,7 @@ class _BusquedaPageState extends State<BusquedaPage> {
                         border: InputBorder.none,
                         contentPadding:
                             EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
-                    controller: myController,
+                    controller: _myController,
                   ),
                 ),
               ),
@@ -189,7 +189,7 @@ class _BusquedaPageState extends State<BusquedaPage> {
 
   Widget projectWidget() {
     return FutureBuilder(
-      future: fetchPost(myController.text),
+      future: fetchPost(_myController.text),
       builder: (context, projectSnap) {
         if (projectSnap.hasError) {
           return Text('Error: ${projectSnap.error}');

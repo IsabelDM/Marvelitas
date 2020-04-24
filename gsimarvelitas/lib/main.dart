@@ -4,6 +4,7 @@ import 'package:gsimarvelitas/ui/busqueda_page.dart';
 import 'package:gsimarvelitas/ui/login_page.dart';
 import 'package:gsimarvelitas/ui/profile_page_design.dart';
 import 'package:gsimarvelitas/ui/resultados.dart';
+import 'package:gsimarvelitas/ui/lecturaPage.dart';
 
 
 void main() => runApp(new MyApp());
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         "/busqueda": (BuildContext context) => BusquedaPage(),
         "/resultados": (BuildContext context) => Resultados(),
         "/perfil": (BuildContext context) => ProfilePageDesign(),
+        "/leer": (BuildContext context) => EpubWidget(),
       },
       home: SideBarLayout()
     );
