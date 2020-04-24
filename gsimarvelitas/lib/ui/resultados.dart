@@ -116,9 +116,11 @@ class _ResultadosState extends State<Resultados>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                   SizedBox(height: 30),
                     Container(
-                        height: 620,
+                        height: 740,
+                       decoration: BoxDecoration(
+                        image: DecorationImage(
+                        image: AssetImage("assets/background.jpg"), fit: BoxFit.cover)),
                         child: PageView(
                           controller: PageController(viewportFraction: 0.8),
                           scrollDirection: Axis.horizontal,

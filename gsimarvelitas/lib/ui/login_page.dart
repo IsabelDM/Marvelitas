@@ -1,13 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gsimarvelitas/Usuarios/modelo.dart';
 import 'package:gsimarvelitas/utils/bubble_indication_painter.dart';
 import 'package:gsimarvelitas/utils/my_flutter_app_icons.dart';
 import 'package:gsimarvelitas/MenuHamburguesa/navigationBloc.dart';
 
 class LoginPage extends StatefulWidget with NavigationStates {
   LoginPage({Key key}) : super(key: key);
+  Modelo user;
 
   @override
   _LoginPageState createState() => new _LoginPageState();
@@ -16,7 +20,9 @@ class LoginPage extends StatefulWidget with NavigationStates {
 class _LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
+ final _formKey = GlobalKey<FormState>();
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  DatabaseReference dbRef = FirebaseDatabase.instance.reference().child("Users");
   final FocusNode myFocusNodeEmailLogin = FocusNode();
   final FocusNode myFocusNodePasswordLogin = FocusNode();
 
@@ -24,8 +30,8 @@ class _LoginPageState extends State<LoginPage>
   final FocusNode myFocusNodeEmail = FocusNode();
   final FocusNode myFocusNodeName = FocusNode();
 
-  TextEditingController loginEmailController = new TextEditingController();
-  TextEditingController loginPasswordController = new TextEditingController();
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController passwordController = new TextEditingController();
 
   bool _obscureTextLogin = true;
   bool _obscureTextSignup = true;
@@ -110,7 +116,72 @@ class _LoginPageState extends State<LoginPage>
                 ),
               ),
             ])));
+ /*return Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+            child: Column(children: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(20.0),
+            child: TextFormField(
+              controller: emailController,
+              decoration: InputDecoration(
+                labelText: "Enter email",
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
+              // The validator receives the text that the user has entered.
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Enter User Name';
+                }
+                return null;
+              },
+            ),
+          ),
+          child: RaisedButton(
+    color: Colors.lightBlue,
+    onPressed: () {
+    if (_formKey.currentState.validate()) {
+        registerToFb();
+    }
+    },
+    child: Text('Submit'),
+);*/
+
   }
+ /*  void registerToFb() {
+    firebaseAuth
+        .createUserWithEmailAndPassword(
+            email: emailController.text, password: passwordController.text)
+        .then((result) {
+      dbRef.child(result.user.uid).set({
+        "email": emailController.text,
+      }).then((res) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Home(uid: result.user.uid)),
+        );
+      });
+    }).catchError((err) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Error"),
+              content: Text(err.message),
+              actions: [
+                FlatButton(
+                  child: Text("Ok"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          });
+    });
+  }*/
 
   @override
   void dispose() {
@@ -119,12 +190,15 @@ class _LoginPageState extends State<LoginPage>
     myFocusNodeName.dispose();
     _pageController?.dispose();
     _animationController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
     super.dispose();
   }
 
   @override
   void initState() {
     super.initState();
+
 
     _animationController =
         AnimationController(vsync: this, duration: Duration(seconds: 20));
@@ -241,9 +315,10 @@ class _LoginPageState extends State<LoginPage>
                             top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
                           focusNode: myFocusNodeEmailLogin,
-                          controller: loginEmailController,
-                          keyboardType: TextInputType.emailAddress,
-                          style: TextStyle(
+                          controller: emailController,
+                          obscureText: false,                   
+                         // keyboardType: TextInputType.emailAddress,
+                          style: TextStyle(             
                               fontFamily: "WorkSansSemiBold",
                               fontSize: 16.0,
                               color: Colors.black),
@@ -270,7 +345,7 @@ class _LoginPageState extends State<LoginPage>
                             top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
                           focusNode: myFocusNodePasswordLogin,
-                          controller: loginPasswordController,
+                          controller: passwordController,
                           obscureText: _obscureTextLogin,
                           style: TextStyle(
                               fontFamily: "WorkSansSemiBold",
@@ -329,6 +404,7 @@ class _LoginPageState extends State<LoginPage>
                   onPressed: () {
                    BlocProvider.of<NavigationBloc>(context)
                         .add(NavigationEvents.BusquedaPageClickedEvent);
+                        
                   },
                 ),
               ),

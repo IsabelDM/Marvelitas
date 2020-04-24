@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
@@ -49,7 +48,7 @@ class EpubState extends State<EpubWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Plugin example app')),
+      appBar: AppBar(title: const Text('      Lector de Cómics')),
       body: Center(
         child: Column(
           children: <Widget>[
@@ -96,8 +95,7 @@ class EpubState extends State<EpubWidget> {
                   ),
                 ),
                 onTap: () {
-                  //pathPDF ="";
-                 
+                  //pathPDF ="";                
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => PDFScreen(pathPDF[1])),
@@ -120,7 +118,7 @@ class PDFScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PDFViewerScaffold(
         appBar: AppBar(
-          title: Text("Document"),
+          title: Text("Lector de Cómics"),
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.share),
@@ -128,6 +126,6 @@ class PDFScreen extends StatelessWidget {
             ),
           ],
         ),
-        path: pathPDF);
+     path: pathPDF);
   }
 }
