@@ -8,6 +8,7 @@ import 'package:gsimarvelitas/Usuarios/modelo.dart';
 import 'package:gsimarvelitas/utils/bubble_indication_painter.dart';
 import 'package:gsimarvelitas/utils/my_flutter_app_icons.dart';
 import 'package:gsimarvelitas/MenuHamburguesa/navigationBloc.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPage extends StatefulWidget with NavigationStates {
   LoginPage({Key key}) : super(key: key);
@@ -50,6 +51,28 @@ class _LoginPageState extends State<LoginPage>
 
   AnimationController _animationController;
   Animation<double> _backgroundAnimation;
+
+  bool _isLoggedIn = false;
+
+  GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+
+  _login() async{
+    try{
+      await _googleSignIn.signIn();
+      setState(() {
+        _isLoggedIn = true;
+      });
+    } catch (err){
+      print(err);
+    }
+  }
+
+  _logout(){
+    _googleSignIn.signOut();
+    setState(() {
+      _isLoggedIn = false;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -291,6 +314,7 @@ class _LoginPageState extends State<LoginPage>
   }
 
   Widget _buildSignIn(BuildContext context) {
+    return Scaffold(
     return Container(
       padding: EdgeInsets.only(top: 23.0),
       child: Column(
@@ -503,10 +527,13 @@ class _LoginPageState extends State<LoginPage>
                       shape: BoxShape.circle,
                       color: Colors.white,
                     ),
-                    child: new Icon(
-                      FontAwesomeIcons.google,
-                      color: Colors.red,
+                    child: OutlineButton(
+                      child: Text("Google"),
+                      onPressed: () {
+                        _login();
+                      },
                     ),
+                    
                   ),
                 ),
               ),
@@ -514,7 +541,7 @@ class _LoginPageState extends State<LoginPage>
           ),
         ],
       ),
-    );
+    ),);
   }
 
   Widget _buildSignUp(BuildContext context) {
