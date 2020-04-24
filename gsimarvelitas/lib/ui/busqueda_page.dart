@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
+import 'package:getflutter/components/shimmer/gf_shimmer.dart';
 import 'package:gsimarvelitas/APIRest/personaje.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -202,61 +203,63 @@ class _BusquedaPageState extends State<BusquedaPage> {
   }
 
   Widget historial(context, lines) {
-    return Container(
-      child: new ListView(
-        children: <Widget>[
-          busca(),
-          Text(
+    return Scaffold(
+        backgroundColor: Colors.transparent,
+        body: SingleChildScrollView(
+            child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Stack(
+            children: <Widget>[
+              /*Text(
             "Historial",
             textAlign: TextAlign.center,
             style: GoogleFonts.amarante(
                 color: Colors.red,
                 fontSize: 50.0,
                 backgroundColor: Colors.black),
-          ),
-          Container(
-            padding: EdgeInsets.only(top: 15),
-            height: MediaQuery.of(context).size.height,
-            width: double.infinity,
-            child: ListView.builder(
-                itemCount: lines.data.length,
-                itemBuilder: (context, index) {
-                  String historial = lines.data[index];
-                  return Container(
-                    height: 50.0,
-                    child: Card(
-                      elevation: 10,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        side: BorderSide(color: Colors.black38),
-                      ),
-                      child: new InkWell(
-                        onTap: () {
-                          /* Navigator.pushNamed(context, '/resultados',
-                                arguments: historial);*/
-                          /*  BlocProvider.of<NavigationBloc>(context)
-                        .add(NavigationEvents.ResultadosClickedEvent, arguments: per);*/
-                        },
-                        child: Container(
-                          child: Center(
-                            child: Text(
-                              historial.toString(),
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.specialElite(
-                                color: Colors.black,
-                                fontSize: 20.0,
+          ),*/
+              Container(
+                padding: EdgeInsets.only(top: 15),
+                height: MediaQuery.of(context).size.height,
+                width: double.infinity,
+                child: ListView.builder(
+                    itemCount: lines.data.length,
+                    itemBuilder: (context, index) {
+                      String historial = lines.data[index];
+                      return Container(
+                        height: 50.0,
+                        child: Card(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            side: BorderSide(color: Colors.black38),
+                          ),
+                          child: new InkWell(
+                            onTap: () {
+                              //_printLatestValue();
+                            },
+                            child: Container(
+                              child: Center(
+                                child: Text(
+                                  historial.toString(),
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.specialElite(
+                                    color: Colors.black,
+                                    fontSize: 20.0,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                  );
-                }),
+                      );
+                    }),
+              ),
+              busca()
+            ],
           ),
-        ],
-      ),
-    );
+        )));
   }
 
   //HISTORIAL
@@ -289,7 +292,8 @@ class _BusquedaPageState extends State<BusquedaPage> {
           if (lines.hasData) {
             return historial(context, lines);
           } else {
-            return CircularProgressIndicator();
+            _write("");
+            return (Image.asset('assets/loading.gif'));
           }
         });
   }
