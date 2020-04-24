@@ -33,6 +33,7 @@ class _BusquedaPageState extends State<BusquedaPage> {
   @override
   void initState() {
     super.initState();
+    _write("");
     _myController.addListener(_printLatestValue);
   }
 
@@ -292,7 +293,6 @@ class _BusquedaPageState extends State<BusquedaPage> {
           if (lines.hasData) {
             return historial(context, lines);
           } else {
-            _write("");
             return (Image.asset('assets/loading.gif'));
           }
         });
