@@ -2,12 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gsimarvelitas/ui/busqueda_page.dart';
 import 'package:gsimarvelitas/utils/bubble_indication_painter.dart';
 import 'package:gsimarvelitas/utils/my_flutter_app_icons.dart';
 import 'package:gsimarvelitas/MenuHamburguesa/navigationBloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:gsimarvelitas/Usuarios/modelo.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
+
 
 class LoginPage extends StatefulWidget with NavigationStates {
   LoginPage({Key key}) : super(key: key);
+  Modelo user;
 
   @override
   _LoginPageState createState() => new _LoginPageState();
@@ -17,6 +25,13 @@ class _LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
+  //lo del token
+ // FirebaseUser user = await _auth.signInWithGoogle(
+       // idToken: gsa.idToken, accessToken: gsa.accessToken);
+  
+  final _formKey = GlobalKey<FormState>();
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  DatabaseReference dbRef = FirebaseDatabase.instance.reference().child("Users");
   final FocusNode myFocusNodeEmailLogin = FocusNode();
   final FocusNode myFocusNodePasswordLogin = FocusNode();
 
@@ -24,8 +39,8 @@ class _LoginPageState extends State<LoginPage>
   final FocusNode myFocusNodeEmail = FocusNode();
   final FocusNode myFocusNodeName = FocusNode();
 
-  TextEditingController loginEmailController = new TextEditingController();
-  TextEditingController loginPasswordController = new TextEditingController();
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController passwordController = new TextEditingController();
 
   bool _obscureTextLogin = true;
   bool _obscureTextSignup = true;
@@ -44,6 +59,42 @@ class _LoginPageState extends State<LoginPage>
 
   AnimationController _animationController;
   Animation<double> _backgroundAnimation;
+
+  
+  bool _isLoggedIn = false;
+
+  GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    
+
+  /*Future<FirebaseUser> _incrementCounter() async {
+    final GoogleSignIn _googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+    if (googleUser == null) return null;
+    final result = await googleUser.authentication;
+     FirebaseUser user = await _auth.signInWithGoogle(
+         idToken: result.idToken, accessToken: result.accessToken);  print("user name:") 
+    
+     return user;
+ }*/
+
+  _login() async{
+    try{
+      await _googleSignIn.signIn();
+      setState(() {
+        _isLoggedIn = true;
+      });
+    } catch (err){
+      print(err);
+    }
+  }
+
+  _logout(){
+    _googleSignIn.signOut();
+    setState(() {
+      _isLoggedIn = false;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -119,6 +170,8 @@ class _LoginPageState extends State<LoginPage>
     myFocusNodeName.dispose();
     _pageController?.dispose();
     _animationController.dispose();
+   // emailController.dispose();
+    //passwordController.dispose();
     super.dispose();
   }
 
@@ -241,7 +294,8 @@ class _LoginPageState extends State<LoginPage>
                             top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
                           focusNode: myFocusNodeEmailLogin,
-                          controller: loginEmailController,
+                          controller: emailController,
+                          obscureText: false,   
                           keyboardType: TextInputType.emailAddress,
                           style: TextStyle(
                               fontFamily: "WorkSansSemiBold",
@@ -270,7 +324,7 @@ class _LoginPageState extends State<LoginPage>
                             top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
                           focusNode: myFocusNodePasswordLogin,
-                          controller: loginPasswordController,
+                          controller: passwordController,
                           obscureText: _obscureTextLogin,
                           style: TextStyle(
                               fontFamily: "WorkSansSemiBold",
@@ -327,8 +381,14 @@ class _LoginPageState extends State<LoginPage>
                   ),
                   
                   onPressed: () {
-                   BlocProvider.of<NavigationBloc>(context)
-                        .add(NavigationEvents.BusquedaPageClickedEvent);
+                  /* BlocProvider.of<NavigationBloc>(context)
+                        .add(NavigationEvents.BusquedaPageClickedEvent);*/
+                        if(emailController.text == "JWalters" && passwordController.text == "marvel123"){
+                          BlocProvider.of<NavigationBloc>(context)
+                                .add(NavigationEvents.BusquedaPageClickedEvent);
+                        }else
+                                print("Error pasa algo");
+
                   },
                 ),
               ),
@@ -427,9 +487,11 @@ class _LoginPageState extends State<LoginPage>
                       shape: BoxShape.circle,
                       color: Colors.white,
                     ),
-                    child: new Icon(
-                      FontAwesomeIcons.google,
-                      color: Colors.red,
+                    child: OutlineButton(
+                      child: Text("Google"),
+                      onPressed: (){
+                          _login();
+                      },
                     ),
                   ),
                 ),
@@ -648,4 +710,5 @@ class _LoginPageState extends State<LoginPage>
       _obscureTextSignupConfirm = !_obscureTextSignupConfirm;
     });
   }
+
 }
