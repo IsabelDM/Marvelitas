@@ -10,12 +10,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:gsimarvelitas/Usuarios/modelo.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:toast/toast.dart';
 
 
 
 class LoginPage extends StatefulWidget with NavigationStates {
   LoginPage({Key key}) : super(key: key);
-  Modelo user;
+  //Modelo user;
 
   @override
   _LoginPageState createState() => new _LoginPageState();
@@ -41,6 +42,7 @@ class _LoginPageState extends State<LoginPage>
 
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
+  
 
   bool _obscureTextLogin = true;
   bool _obscureTextSignup = true;
@@ -270,6 +272,7 @@ class _LoginPageState extends State<LoginPage>
   }
 
   Widget _buildSignIn(BuildContext context) {
+    
     return Container(
       padding: EdgeInsets.only(top: 23.0),
       child: Column(
@@ -397,7 +400,9 @@ class _LoginPageState extends State<LoginPage>
           Padding(
             padding: EdgeInsets.only(top: 10.0),
             child: FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  Toast.show("User: JWalters, Pwd: marvel123", context, duration: Toast.LENGTH_SHORT, gravity: Toast.CENTER);
+                },
                 child: Text(
                   "¿Ha olvidado su contraseña?",
                   style: TextStyle(
@@ -459,36 +464,23 @@ class _LoginPageState extends State<LoginPage>
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.only(top: 10.0, right: 40.0),
-                child: GestureDetector(
-                  onTap: () => showInSnackBar("Facebook button pressed"),
-                  child: Container(
-                    padding: const EdgeInsets.all(15.0),
-                    decoration: new BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                    ),
-                    child: new Icon(
-                      FontAwesomeIcons.facebookF,
-                      color: Colors.red,
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 10.0),
+                padding: EdgeInsets.only(top: 1.0,bottom: 10),
                 child: GestureDetector(
                  onTap: (){
-                   
+                  //_login();
                  },
                   child: Container(
-                    padding: const EdgeInsets.all(15.0),
+                    padding: const EdgeInsets.all(3.0),
                     decoration: new BoxDecoration(
                       shape: BoxShape.circle,
                       color: Colors.white,
                     ),
                     child: OutlineButton(
-                      child: Text("Google"),
+                      child: new Icon(
+                        FontAwesomeIcons.google,
+                        color: Colors.red,
+                        size: 20,
+                      ),
                       onPressed: (){
                           _login();
                       },
