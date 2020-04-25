@@ -24,15 +24,15 @@ class LoginPage extends StatefulWidget with NavigationStates {
 
 class _LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   //lo del token
  // FirebaseUser user = await _auth.signInWithGoogle(
        // idToken: gsa.idToken, accessToken: gsa.accessToken);
   
-  final _formKey = GlobalKey<FormState>();
-  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  DatabaseReference dbRef = FirebaseDatabase.instance.reference().child("Users");
+  //final _formKey = GlobalKey<FormState>();
+  //FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+ // DatabaseReference dbRef = FirebaseDatabase.instance.reference().child("Users");
   final FocusNode myFocusNodeEmailLogin = FocusNode();
   final FocusNode myFocusNodePasswordLogin = FocusNode();
 
@@ -42,6 +42,8 @@ class _LoginPageState extends State<LoginPage>
 
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
+
+
   
 
   bool _obscureTextLogin = true;
@@ -66,7 +68,7 @@ class _LoginPageState extends State<LoginPage>
   bool _isLoggedIn = false;
 
   GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
-    final FirebaseAuth _auth = FirebaseAuth.instance;
+   // final FirebaseAuth _auth = FirebaseAuth.instance;
     
 
   /*Future<FirebaseUser> _incrementCounter() async {
@@ -172,8 +174,8 @@ class _LoginPageState extends State<LoginPage>
     myFocusNodeName.dispose();
     _pageController?.dispose();
     _animationController.dispose();
-   // emailController.dispose();
-    //passwordController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
     super.dispose();
   }
 
