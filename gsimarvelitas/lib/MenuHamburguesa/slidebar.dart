@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getflutter/getflutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:toast/toast.dart';
 import '../MenuHamburguesa/navigationBloc.dart';
 import '../MenuHamburguesa/menuItem.dart';
 import 'package:gsimarvelitas/ui/login_page.dart';
@@ -20,10 +21,10 @@ class _SideBarState extends State<SideBar>
   Stream<bool> isSidebarOpenedStream;
   StreamSink<bool> isSidebarOpenedSink;
   final _animationDuration = const Duration(milliseconds: 500);
-GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
- bool _isLoggedIn = false;
-  
-_logout(){
+  GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+  bool _isLoggedIn = false;
+
+  _logout() {
     _googleSignIn.signOut();
     setState(() {
       _isLoggedIn = false;
@@ -138,14 +139,26 @@ _logout(){
                         icon: Icons.settings,
                       ),
                       MenuItem(
+                          title: 'About',
+                          icon: Icons.info,
+                          onTap: () {
+                            Toast.show(
+                                "Aplicación realizada por:\n·Lucía Alfonso\nIsabel Diezma\n 2020", context,
+                                duration: Toast.LENGTH_LONG,
+                                gravity: Toast.CENTER);
+
+                            onIconPressed();
+                            BlocProvider.of<NavigationBloc>(context)
+                                .add(NavigationEvents.LecturaClickedEvent);
+                          }),
+                      MenuItem(
                         title: 'Log Out',
                         icon: Icons.exit_to_app,
                         onTap: () {
                           onIconPressed();
                           Navigator.of(context).pushNamedAndRemoveUntil(
                               '/', (Route<dynamic> route) => false);
-                            _logout();
-                          
+                          _logout();
                         },
                       ),
                     ],
@@ -207,4 +220,3 @@ class CustomMenuClipper extends CustomClipper<Path> {
     return true;
   }
 }
-

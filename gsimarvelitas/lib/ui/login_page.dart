@@ -12,8 +12,6 @@ import 'package:gsimarvelitas/Usuarios/modelo.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:toast/toast.dart';
 
-
-
 class LoginPage extends StatefulWidget with NavigationStates {
   LoginPage({Key key}) : super(key: key);
   //Modelo user;
@@ -24,15 +22,15 @@ class LoginPage extends StatefulWidget with NavigationStates {
 
 class _LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
-final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   //lo del token
- // FirebaseUser user = await _auth.signInWithGoogle(
-       // idToken: gsa.idToken, accessToken: gsa.accessToken);
-  
+  // FirebaseUser user = await _auth.signInWithGoogle(
+  // idToken: gsa.idToken, accessToken: gsa.accessToken);
+
   //final _formKey = GlobalKey<FormState>();
   //FirebaseAuth firebaseAuth = FirebaseAuth.instance;
- // DatabaseReference dbRef = FirebaseDatabase.instance.reference().child("Users");
+  // DatabaseReference dbRef = FirebaseDatabase.instance.reference().child("Users");
   final FocusNode myFocusNodeEmailLogin = FocusNode();
   final FocusNode myFocusNodePasswordLogin = FocusNode();
 
@@ -42,9 +40,6 @@ final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
-
-
-  
 
   bool _obscureTextLogin = true;
   bool _obscureTextSignup = true;
@@ -64,12 +59,10 @@ final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   AnimationController _animationController;
   Animation<double> _backgroundAnimation;
 
-  
   bool _isLoggedIn = false;
 
   GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
-   // final FirebaseAuth _auth = FirebaseAuth.instance;
-    
+  // final FirebaseAuth _auth = FirebaseAuth.instance;
 
   /*Future<FirebaseUser> _incrementCounter() async {
     final GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -82,25 +75,26 @@ final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
      return user;
  }*/
 
-  _login() async{
-    try{
+  _login() async {
+    try {
       await _googleSignIn.signIn();
       setState(() {
         _isLoggedIn = true;
       });
       BlocProvider.of<NavigationBloc>(context)
-                                .add(NavigationEvents.BusquedaPageClickedEvent);
-    } catch (err){
+          .add(NavigationEvents.BusquedaPageClickedEvent);
+    } catch (err) {
       print(err);
     }
   }
 
-  _logout(){
+  _logout() {
     _googleSignIn.signOut();
     setState(() {
       _isLoggedIn = false;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -276,7 +270,6 @@ final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   }
 
   Widget _buildSignIn(BuildContext context) {
-    
     return Container(
       padding: EdgeInsets.only(top: 23.0),
       child: Column(
@@ -302,7 +295,7 @@ final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
                         child: TextField(
                           focusNode: myFocusNodeEmailLogin,
                           controller: emailController,
-                          obscureText: false,   
+                          obscureText: false,
                           keyboardType: TextInputType.emailAddress,
                           style: TextStyle(
                               fontFamily: "WorkSansSemiBold",
@@ -386,16 +379,16 @@ final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
                           fontFamily: "WorkSansBold"),
                     ),
                   ),
-                  
                   onPressed: () {
-                  /* BlocProvider.of<NavigationBloc>(context)
+                    /* BlocProvider.of<NavigationBloc>(context)
                         .add(NavigationEvents.BusquedaPageClickedEvent);*/
-                        if(emailController.text == "JWalters" && passwordController.text == "marvel123"){
-                          BlocProvider.of<NavigationBloc>(context)
-                                .add(NavigationEvents.BusquedaPageClickedEvent);
-                        }else
-                                print("Error pasa algo");
-
+                    if (emailController.text == "JWalters" &&
+                        passwordController.text == "marvel123") {
+                      BlocProvider.of<NavigationBloc>(context)
+                          .add(NavigationEvents.BusquedaPageClickedEvent);
+                    } else
+                      Toast.show("Usuario y/o contraseña incorrectos", context,
+                          duration: Toast.LENGTH_SHORT, gravity: Toast.CENTER);
                   },
                 ),
               ),
@@ -405,7 +398,8 @@ final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
             padding: EdgeInsets.only(top: 10.0),
             child: FlatButton(
                 onPressed: () {
-                  Toast.show("User: JWalters, Pwd: marvel123", context, duration: Toast.LENGTH_SHORT, gravity: Toast.CENTER);
+                  Toast.show("User: JWalters, Pwd: marvel123", context,
+                      duration: Toast.LENGTH_LONG, gravity: Toast.CENTER);
                 },
                 child: Text(
                   "¿Ha olvidado su contraseña?",
@@ -468,11 +462,11 @@ final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.only(top: 1.0,bottom: 10),
+                padding: EdgeInsets.only(top: 1.0, bottom: 10),
                 child: GestureDetector(
-                 onTap: (){
-                  //_login();
-                 },
+                  onTap: () {
+                    //_login();
+                  },
                   child: Container(
                     padding: const EdgeInsets.all(3.0),
                     decoration: new BoxDecoration(
@@ -485,11 +479,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
                         color: Colors.red,
                         size: 20,
                       ),
-                      onPressed: (){
-                          _login();
-  
+                      onPressed: () {
+                        _login();
                       },
-                      
                     ),
                   ),
                 ),
@@ -708,5 +700,4 @@ final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
       _obscureTextSignupConfirm = !_obscureTextSignupConfirm;
     });
   }
-
 }

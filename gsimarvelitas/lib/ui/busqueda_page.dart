@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:gsimarvelitas/MenuHamburguesa/navigationBloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:toast/toast.dart';
 
 class BusquedaPage extends StatefulWidget with NavigationStates {
   final Future<Personaje> personaje;
@@ -39,6 +40,10 @@ class _BusquedaPageState extends State<BusquedaPage> {
 
   _printLatestValue() {
     fetchPost(_myController.text);
+    if (_myController.text == 'Batman') {
+      Toast.show("DC es mejor, pero no tenía la API", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.CENTER);
+    }
     setState(() {});
     print("busqueda_page: " + _myController.text);
   }
