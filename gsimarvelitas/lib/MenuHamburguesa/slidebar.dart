@@ -2,9 +2,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getflutter/getflutter.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rxdart/rxdart.dart';
 import '../MenuHamburguesa/navigationBloc.dart';
 import '../MenuHamburguesa/menuItem.dart';
+import 'package:gsimarvelitas/ui/login_page.dart';
 
 class SideBar extends StatefulWidget {
   @override
@@ -18,6 +20,15 @@ class _SideBarState extends State<SideBar>
   Stream<bool> isSidebarOpenedStream;
   StreamSink<bool> isSidebarOpenedSink;
   final _animationDuration = const Duration(milliseconds: 500);
+GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+ bool _isLoggedIn = false;
+  
+_logout(){
+    _googleSignIn.signOut();
+    setState(() {
+      _isLoggedIn = false;
+    });
+  }
 
   @override
   void initState() {
@@ -133,6 +144,8 @@ class _SideBarState extends State<SideBar>
                           onIconPressed();
                           Navigator.of(context).pushNamedAndRemoveUntil(
                               '/', (Route<dynamic> route) => false);
+                            _logout();
+                          
                         },
                       ),
                     ],
@@ -194,3 +207,4 @@ class CustomMenuClipper extends CustomClipper<Path> {
     return true;
   }
 }
+

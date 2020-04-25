@@ -88,6 +88,8 @@ final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
       setState(() {
         _isLoggedIn = true;
       });
+      BlocProvider.of<NavigationBloc>(context)
+                                .add(NavigationEvents.BusquedaPageClickedEvent);
     } catch (err){
       print(err);
     }
@@ -485,7 +487,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
                       ),
                       onPressed: (){
                           _login();
+  
                       },
+                      
                     ),
                   ),
                 ),
