@@ -85,7 +85,7 @@ class _SideBarState extends State<SideBar>
                   decoration: BoxDecoration(
                     color: Color.fromRGBO(59, 59, 59, 10),
                     image: DecorationImage(
-                      image: AssetImage('assets/espaidermangris.jpg'),
+                      image: AssetImage('assets/menu.jpg'),
                       //Si es online:
                       //image: NetworkImage('https://png.pngtree.com/thumb_back/fw800/back_our/20190620/ourmid/pngtree-strong-decontamination-cleaner-promotion-main-map-image_142503.jpg'),
                       fit: BoxFit.cover,
@@ -94,7 +94,7 @@ class _SideBarState extends State<SideBar>
                   child: Column(
                     children: <Widget>[
                       SizedBox(
-                        height: 100,
+                        height: 75,
                       ),
                       UserAccountsDrawerHeader(
                         accountName: Text("Jennifer Walters",
@@ -116,50 +116,58 @@ class _SideBarState extends State<SideBar>
                           color: Colors.black38,
                         ),
                       ),
-                      MenuItem(title: ' '),
-                      MenuItem(
-                        title: 'Búsqueda',
-                        icon: Icons.search,
-                        onTap: () {
-                          onIconPressed();
-                          BlocProvider.of<NavigationBloc>(context)
-                              .add(NavigationEvents.BusquedaPageClickedEvent);
-                        },
-                      ),
-                      MenuItem(
-                          title: 'Leer',
-                          icon: Icons.description,
-                          onTap: () {
-                            onIconPressed();
-                            BlocProvider.of<NavigationBloc>(context)
-                                .add(NavigationEvents.LecturaClickedEvent);
-                          }),
-                      MenuItem(
-                        title: 'Ajustes',
-                        icon: Icons.settings,
-                      ),
-                      MenuItem(
-                          title: 'About',
-                          icon: Icons.info,
-                          onTap: () {
-                            Toast.show(
-                                "Aplicación realizada por:\n·Lucía Alfonso\nIsabel Diezma\n 2020", context,
-                                duration: Toast.LENGTH_LONG,
-                                gravity: Toast.CENTER);
+                      SizedBox(height: 30,),
+                      Container(
+                        decoration: BoxDecoration( color: Color.fromRGBO(59, 59, 59, 95),),
+                        child: Column(
+                          children: <Widget>[
+                            MenuItem(
+                              title: 'Búsqueda',
+                              icon: Icons.search,
+                              onTap: () {
+                                onIconPressed();
+                                BlocProvider.of<NavigationBloc>(context).add(
+                                    NavigationEvents.BusquedaPageClickedEvent);
+                              },
+                            ),
+                            MenuItem(
+                                title: 'Leer',
+                                icon: Icons.description,
+                                onTap: () {
+                                  onIconPressed();
+                                  BlocProvider.of<NavigationBloc>(context).add(
+                                      NavigationEvents.LecturaClickedEvent);
+                                }),
+                            MenuItem(
+                              title: 'Ajustes',
+                              icon: Icons.settings,
+                            ),
+                            MenuItem(
+                                title: 'About',
+                                icon: Icons.info,
+                                onTap: () {
+                                  Toast.show(
+                                      "Aplicación realizada por:\n·Lucía Alfonso\n·Isabel Diezma\n(c) 2020",
+                                      context,
+                                      duration: Toast.LENGTH_LONG,
+                                      gravity: Toast.CENTER);
 
-                            onIconPressed();
-                            BlocProvider.of<NavigationBloc>(context)
-                                .add(NavigationEvents.LecturaClickedEvent);
-                          }),
-                      MenuItem(
-                        title: 'Log Out',
-                        icon: Icons.exit_to_app,
-                        onTap: () {
-                          onIconPressed();
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                              '/', (Route<dynamic> route) => false);
-                          _logout();
-                        },
+                                  onIconPressed();
+                                  BlocProvider.of<NavigationBloc>(context).add(
+                                      NavigationEvents.LecturaClickedEvent);
+                                }),
+                            MenuItem(
+                              title: 'Log Out',
+                              icon: Icons.exit_to_app,
+                              onTap: () {
+                                onIconPressed();
+                                Navigator.of(context).pushNamedAndRemoveUntil(
+                                    '/', (Route<dynamic> route) => false);
+                                _logout();
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

@@ -46,19 +46,13 @@ flutter:
       - assets/login_logo.png
       - assets/ajustes.png
       - assets/mightythor1.jpg
-      - assets/dicaprio.jpg
       - assets/login.jpg
       - assets/background.jpg
-      - assets/wallpaper.jpg
-      - assets/wallpaper1.jpg
-      - assets/carol.jpg
-      - assets/fondo_perfil1.jpg
-      - assets/goose.jpg
+      - assets/background1.jpg
       - assets/hulka.jpg
-      - assets/hulka2.jpg
       - assets/espaidermangris.jpg
-      - assets/PortadaNoAcoso.jpg
       - assets/loading.gif
+      - assets/menu.jpg
 
   fonts:
     - family: MyFlutterApp

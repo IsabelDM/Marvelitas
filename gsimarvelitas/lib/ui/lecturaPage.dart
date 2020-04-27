@@ -77,7 +77,7 @@ class EpubState extends State<EpubWidget> {
         body: Container(
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("assets/background.jpg"),
+                    image: AssetImage("assets/background1.jpg"),
                     fit: BoxFit.cover)),
             child: Container(
               child: new ListView(
@@ -88,8 +88,8 @@ class EpubState extends State<EpubWidget> {
                   GFTypography(
                     text: 'Spider Gwen',
                     type: GFTypographyType.typo1,
-                    textColor: Colors.white,
-                    dividerColor: Colors.white,
+                    textColor: Colors.black,
+                    dividerColor: Colors.black,
                   ),
                   GFItemsCarousel(
                     rowCount: 3,
@@ -119,11 +119,12 @@ class EpubState extends State<EpubWidget> {
                       },
                     ).toList(),
                   ),
+                  SizedBox(height: 20,),
                   GFTypography(
                     text: 'Comics del dia',
                     type: GFTypographyType.typo1,
-                    textColor: Colors.white,
-                    dividerColor: Colors.white,
+                    textColor: Colors.black,
+                    dividerColor: Colors.black,
                   ),
                   GFItemsCarousel(
                     rowCount: 4,

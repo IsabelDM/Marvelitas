@@ -55,7 +55,7 @@ class _BusquedaPageState extends State<BusquedaPage> {
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("assets/background.jpg"), fit: BoxFit.cover)),
+                image: AssetImage("assets/background1.jpg"), fit: BoxFit.cover)),
         child: Container(
           child: projectWidget(),
         ),

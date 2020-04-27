@@ -120,7 +120,7 @@ class _ResultadosState extends State<Resultados>
                         height: 740,
                        decoration: BoxDecoration(
                         image: DecorationImage(
-                        image: AssetImage("assets/background.jpg"), fit: BoxFit.cover)),
+                        image: AssetImage("assets/background1.jpg"), fit: BoxFit.cover)),
                         child: PageView(
                           controller: PageController(viewportFraction: 0.8),
                           scrollDirection: Axis.horizontal,
