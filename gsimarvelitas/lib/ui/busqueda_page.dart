@@ -248,7 +248,7 @@ class _BusquedaPageState extends State<BusquedaPage> {
                             child: Container(
                               child: Center(
                                 child: Text(
-                                  historial.toString(),
+                                 "Se buscó: "+historial.toString(),
                                   textAlign: TextAlign.center,
                                   style: GoogleFonts.specialElite(
                                     color: Colors.black,
